@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+  <meta http-equiv="content-type" content="text/html; charset=utf-8">
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>拖拽封装</title>
+</head>
+
+<style type="text/css">
+	body,html,ul,li,button{
+		margin: 0;
+		padding:0;  
+	}
+
+	li,div{
+		width: 100px;
+		height: 100px;
+		display: block;
+		background: #eee;
+		position: relative;
+		left: 0;
+		right: 0;
+	}
+
+	button{
+		position: fixed;
+		left: 0;
+		top: 0;
+	}
+</style>
+
+<body>
+	<button id="btn">创建块</button>
+	<ul id='container'></ul>
+</body>
+
+<script type="text/javascript">
+let container = document.getElementById('container');
+let btn = document.getElementById('btn');
+
+class CreateDragBlock{
+	constructor(element,content) {
+  	this.element = element;
+  	this.content = content;	
+  	this.disX = 0;
+ 		this.disY = 0;
+ 		content.appendChild(element);
+	}
+
+	dragging() {
+		let element = this.element;
+		this.dragDown(element);
+	}
+
+	dragDown(element) {
+		let that = this;
+   	element.onmousedown = function (e) {
+	    e = e || window.e;
+	    //偏移位置 = 元素的X-元素的offset
+	    that.disX = e.clientX - element.offsetLeft;
+ 			that.disY = e.clientY - element.offsetTop;
+ 			that.dragMove(element);
+			that.stopDrag();
+			console.log(that.disX,that.disY);
+	  }
+	}
+
+	dragMove(element) {
+		let _this = this;
+		let clientWidth = document.documentElement.clientWidth;
+		let clientHeight = document.documentElement.clientHeight;
+		let elementWid = element.offsetWidth;
+		let elementHeight = element.offsetHeight;  
+		document.onmousemove = function (e) {
+	    e = e || window.e;
+	    //元素位置 = 现在鼠标位置 -元素的偏移值
+	   	let left  = e.clientX - _this.disX;
+      let top = e.clientY - _this.disY;
+
+      if(left < 0){
+      	left = 0;
+      	return;
+      }
+
+      if(top < 0){
+      	top = 0;
+      	return;
+      }
+
+      if(left > clientWidth - elementWid){
+        left = clientWidth - elementWid;
+        return;
+      }
+
+      if(top > clientHeight - elementHeight){
+        top = clientHeight - elementHeight;
+        return;
+      }
+
+      element.style.left = left + "px";
+      element.style.top =  top + "px";
+		}
+
+	}
+
+	stopDrag() {
+		document.onmouseup = function () {
+		  document.onmousemove = null;
+		  document.onmouseup = null;
+		}
+	}	
+}
+
+
+btn.onclick = function () {
+	new CreateDragBlock(document.createElement('li'),container).dragging();
+}
+
+</script>
+</html>
