@@ -21,7 +21,7 @@
 		height: 100px;
 		display: block;
 		background: #eee;
-		position: relative;
+		position: absolute;
 		left: 0;
 		right: 0;
 	}
@@ -42,18 +42,13 @@
 let container = document.getElementById('container');
 let btn = document.getElementById('btn');
 
-class CreateDragBlock{
+class Drag {
 	constructor(element,content) {
   	this.element = element;
   	this.content = content;	
   	this.disX = 0;
  		this.disY = 0;
- 		content.appendChild(element);
-	}
-
-	dragging() {
-		let element = this.element;
-		this.dragDown(element);
+ 		this.dragDown(element);
 	}
 
 	dragDown(element) {
@@ -117,7 +112,9 @@ class CreateDragBlock{
 
 
 btn.onclick = function () {
-	new CreateDragBlock(document.createElement('li'),container).dragging();
+  const ele = document.createElement('li');
+  container.appendChild(ele);
+	new Drag(ele, container);
 }
 
 </script>
