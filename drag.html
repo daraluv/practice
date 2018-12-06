@@ -42,12 +42,13 @@
 let container = document.getElementById('container');
 let btn = document.getElementById('btn');
 
-class CreateDragBlock{
+class Drag {
 	constructor(element,content) {
         this.element = element;
         this.content = content;	
         this.disX = 0;
  		this.disY = 0;
+<<<<<<< HEAD
  		content.appendChild(element);
         let coloraArr = ['#5c6de7','#ffe58c','#7597de','#ff7b6d'];
         let i = Math.floor(Math.random()*4);
@@ -57,6 +58,9 @@ class CreateDragBlock{
 	dragging() {
 		let element = this.element;
 		this.dragDown(element);
+=======
+ 		this.dragDown(element);
+>>>>>>> 8fb71307a74fbd86088a2d472fc4905d44f3ecf0
 	}
 
 	dragDown(element) {
@@ -123,7 +127,9 @@ class CreateDragBlock{
 
 
 btn.onclick = function () {
-	new CreateDragBlock(document.createElement('li'),container).dragging();
+  const ele = document.createElement('li');
+  container.appendChild(ele);
+	new Drag(ele, container);
 }
 
 </script>
