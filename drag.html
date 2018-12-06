@@ -21,7 +21,7 @@
 		height: 100px;
 		display: block;
 		background: #eee;
-		position: relative;
+		position: absolute;
 		left: 0;
 		right: 0;
 	}
@@ -44,11 +44,14 @@ let btn = document.getElementById('btn');
 
 class CreateDragBlock{
 	constructor(element,content) {
-  	this.element = element;
-  	this.content = content;	
-  	this.disX = 0;
+        this.element = element;
+        this.content = content;	
+        this.disX = 0;
  		this.disY = 0;
  		content.appendChild(element);
+        let coloraArr = ['#5c6de7','#ffe58c','#7597de','#ff7b6d'];
+        let i = Math.floor(Math.random()*4);
+        element.style.background = coloraArr[i];
 	}
 
 	dragging() {
@@ -58,52 +61,54 @@ class CreateDragBlock{
 
 	dragDown(element) {
 		let that = this;
-   	element.onmousedown = function (e) {
-	    e = e || window.e;
-	    //偏移位置 = 元素的X-元素的offset
-	    that.disX = e.clientX - element.offsetLeft;
- 			that.disY = e.clientY - element.offsetTop;
- 			that.dragMove(element);
-			that.stopDrag();
-			console.log(that.disX,that.disY);
-	  }
+        console.log(that.element)
+        element.onmousedown = function (e) {
+            var e = e || window.event;
+            //偏移位置 = 元素的X-元素的offset
+            that.disX = e.clientX - element.offsetLeft;
+            that.disY = e.clientY - element.offsetTop;
+            that.dragMove(element);
+            that.stopDrag();
+            console.log(that.disX,e.clientX - element.offsetLeft);
+        }
 	}
 
 	dragMove(element) {
 		let _this = this;
-		let clientWidth = document.documentElement.clientWidth;
-		let clientHeight = document.documentElement.clientHeight;
+		let clientWidth = document.documentElement.clientWidth|| document.body.clientWidth;;
+		let clientHeight = document.documentElement.clientHeight|| document.body.clientHeight;
 		let elementWid = element.offsetWidth;
 		let elementHeight = element.offsetHeight;  
 		document.onmousemove = function (e) {
-	    e = e || window.e;
-	    //元素位置 = 现在鼠标位置 -元素的偏移值
-	   	let left  = e.clientX - _this.disX;
-      let top = e.clientY - _this.disY;
+            var e = e || window.event;
+    	    //元素位置 = 现在鼠标位置 -元素的偏移值
+    	   	let left  = e.clientX - _this.disX;
+            let top = e.clientY - _this.disY;
 
-      if(left < 0){
-      	left = 0;
-      	return;
-      }
+            if(left < 0){
+            	left = 0;
+            	return;
+            }
 
-      if(top < 0){
-      	top = 0;
-      	return;
-      }
+            if(top < 0){
+            	top = 0;
+            	return;
+            }   
 
-      if(left > clientWidth - elementWid){
-        left = clientWidth - elementWid;
-        return;
-      }
+            if(left > clientWidth - elementWid){
+                left = clientWidth - elementWid;
+                return;
+            }
 
-      if(top > clientHeight - elementHeight){
-        top = clientHeight - elementHeight;
-        return;
-      }
+            if(top > clientHeight - elementHeight){
+                top = clientHeight - elementHeight;
+                return;
+            }
 
-      element.style.left = left + "px";
-      element.style.top =  top + "px";
-		}
+            element.style.left = left + "px";
+            element.style.top =  top + "px";
+
+        }
 
 	}
 
@@ -111,6 +116,7 @@ class CreateDragBlock{
 		document.onmouseup = function () {
 		  document.onmousemove = null;
 		  document.onmouseup = null;
+          return false;
 		}
 	}	
 }

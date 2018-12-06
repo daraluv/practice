@@ -1,7 +1,14 @@
 import React, { Component } from 'react';
 
+export default Home = () => {
+    return(
+      <button id="btn">创建块</button>
+      <ul id='container'></ul>
+    );
+}
 
-class CreateDragBlock{
+
+export default class CreateDragBlock{
   constructor(element,content) {
     this.element = element;
     this.content = content; 
@@ -18,7 +25,7 @@ class CreateDragBlock{
   dragDown(element) {
     let that = this;
     element.onmousedown = function (e) {
-      e = e || window.e;
+      var e = e || window.e;
       //偏移位置 = 元素的X-元素的offset
       that.disX = e.clientX - element.offsetLeft;
       that.disY = e.clientY - element.offsetTop;
@@ -34,7 +41,7 @@ class CreateDragBlock{
     let elementWid = element.offsetWidth;
     let elementHeight = element.offsetHeight;  
     document.onmousemove = function (e) {
-      e = e || window.e;
+      var e = e || window.e;
       //元素位置 = 现在鼠标位置 -元素的偏移值
       let left  = e.clientX - _this.disX;
       let top = e.clientY - _this.disY;
@@ -72,4 +79,4 @@ class CreateDragBlock{
     }
   } 
 }
-export default CreateDragBlock;
+
