@@ -17,7 +17,7 @@ class Drag {
     const element = this.element;
     e = e || window.event;
 
-    //偏移位置 = 元素的X-元素的offset
+    // 偏移位置 = 鼠标的初始值 - 元素的offset
     this.disX = e.clientX - element.offsetLeft;
     this.disY = e.clientY - element.offsetTop;
 
@@ -39,7 +39,7 @@ class Drag {
     let elementHeight = element.offsetHeight;
 
     e = e || window.e;
-    //元素位置 = 现在鼠标位置 -元素的偏移值
+    // 元素位置 = 现在鼠标位置 - 元素的偏移值
     let left = e.clientX - _this.disX;
     let top = e.clientY - _this.disY;
 
