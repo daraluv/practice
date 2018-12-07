@@ -2,7 +2,6 @@ import './style.css';
 
 var zIndex = 0;//元素层级
 var isMoblie = false;//是否为是移动端
-var flag = false; 
 
 class Drag {
   constructor(element, content) {
@@ -26,13 +25,13 @@ class Drag {
 
   dragStart(e) {
     const element = this.element;
-    flag = true;
+    const ev = e || window.event;
+
     
     if(isMoblie && e.changedTouches){
       this.clientX = e.changedTouches[0].pageX;
       this.clientY = e.changedTouches[0].pageY;
     }else{
-      const ev = e || window.event;
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
     }
@@ -52,7 +51,7 @@ class Drag {
 
   dragMove(e) {
     const element = this.element;
-    let _this = this;
+    const ev = e || window.event;
     let clientWidth = this.content.offsetWidth;
     let clientHeight = this.content.offsetHeight;
     let elementWid = element.offsetWidth;
@@ -61,44 +60,41 @@ class Drag {
     if(isMoblie && e.changedTouches){
       this.clientX = e.changedTouches[0].pageX;
       this.clientY = e.changedTouches[0].pageY;
+      e.preventDefault();
     }else{
-      const ev = e || window.event;
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
     }
- 
-    if(flag) {
-      // 元素位置 = 现在鼠标位置 - 元素的偏移值
-      let left = this.clientX - _this.disX;
-      let top = this.clientY - _this.disY;
-      if (left < 0) {
-        left = 0;
-        return;
-      }
 
-      if (top < 0) {
-        top = 0;
-        return;
-      }
-
-      if (left > clientWidth - elementWid) {
-        left = clientWidth - elementWid;
-        return;
-      }
-
-      if (top > clientHeight - elementHeight) {
-        top = clientHeight - elementHeight;
-        return;
-      }
-
-      element.style.left = left + "px";
-      element.style.top = top + "px";
-
+    // 元素位置 = 现在鼠标位置 - 元素的偏移值
+    let left = this.clientX - this.disX;
+    let top = this.clientY - this.disY;
+    if (left < 0) {
+      left = 0;
+      return;
     }
+
+    if (top < 0) {
+      top = 0;
+      return;
+    }
+
+    if (left > clientWidth - elementWid) {
+      left = clientWidth - elementWid;
+      return;
+    }
+
+    if (top > clientHeight - elementHeight) {
+      top = clientHeight - elementHeight;
+      return;
+    }
+
+    element.style.left = left + "px";
+    element.style.top = top + "px";
+
   }
 
   dragEnd() {
-    flag = false;
     document.removeEventListener('mousemove', this._dragMove);
     document.removeEventListener('mouseup', this._dragEnd);
   }
