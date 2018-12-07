@@ -1,69 +1,28 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<meta charset="UTF-8">
-  <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="renderer" content="webkit">
-  <meta name="force-rendering" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>拖拽封装</title>
-</head>
+import './style.css';
 
-<style type="text/css">
-	body,html,ul,li,button{
-		margin: 0;
-		padding:0;  
-	}
-
-	li,div{
-		width: 100px;
-		height: 100px;
-		display: block;
-		background: #eee;
-		position: absolute;
-		left: 0;
-		right: 0;
-	}
-
-  li {
-    border: 3px solid orange;
-  }
-
-	button{
-		position: fixed;
-		left: 0;
-		top: 0;
-	}
-</style>
-
-<body>
-	<button id="btn">创建块</button>
-	<ul id='container'></ul>
-</body>
-
-<script type="text/javascript">
-let container = document.getElementById('container');
-let btn = document.getElementById('btn');
+var zIndex = 0;
 
 class Drag {
-	constructor(element,content) {
-  	this.element = element;
-  	this.content = content;	
-  	this.disX = 0;
- 		this.disY = 0;
+  constructor(element, content) {
+    this.element = element;
+    this.content = content;
+    this.disX = 0;
+    this.disY = 0;
 
     this._mousedown = this.mousedown.bind(this);
-    this.element.addEventListener('mousedown', this._mousedown, false);    
+    this.element.addEventListener('mousedown', this._mousedown, false);
   }
-  
+
   mousedown(e) {
     const element = this.element;
     e = e || window.event;
-    
-    //偏移位置 = 元素的X-元素的offset
+
+    // 偏移位置 = 鼠标的初始值 - 元素的offset
     this.disX = e.clientX - element.offsetLeft;
     this.disY = e.clientY - element.offsetTop;
+
+    zIndex += 1;
+    element.style.zIndex = zIndex;
 
     this._mousemove = this.mousemove.bind(this);
     this._mouseup = this.mouseup.bind(this);
@@ -80,7 +39,7 @@ class Drag {
     let elementHeight = element.offsetHeight;
 
     e = e || window.e;
-    //元素位置 = 现在鼠标位置 -元素的偏移值
+    // 元素位置 = 现在鼠标位置 - 元素的偏移值
     let left = e.clientX - _this.disX;
     let top = e.clientY - _this.disY;
 
@@ -108,19 +67,11 @@ class Drag {
     element.style.top = top + "px";
   }
 
-	mouseup() {
+  mouseup() {
     // this.element.removeEventListener('mousedown', this._mousedown);
     document.removeEventListener('mousemove', this._mousemove);
     document.removeEventListener('mouseup', this._mouseup);
   }
 }
 
-
-btn.onclick = function () {
-  const ele = document.createElement('li');
-  container.appendChild(ele);
-	new Drag(ele, container);
-}
-
-</script>
-</html>
+export default Drag;

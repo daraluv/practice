@@ -1,0 +1,18 @@
+body {
+  margin: 0;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+}
+
+#btn {
+  width: 100px;
+  height: 30px;
+  border: 1px solid #666;
+  color: #333;
+  border-radius: 4px;
+  position: fixed;
+}

@@ -1,0 +1,7 @@
+.drag {
+  width: 100px;
+  height: 100px;
+  background-color: #666;
+  border: 3px solid orange;
+  position: absolute;
+}
