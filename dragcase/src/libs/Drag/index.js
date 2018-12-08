@@ -1,7 +1,7 @@
 import './style.css';
 
 var zIndex = 0;//元素层级
-var isMoblie = false;//是否为是移动端
+var isMoblie = 'ontouchstart' in window;//是否为是移动端
 
 class Drag {
   constructor(element, content) {
@@ -14,24 +14,22 @@ class Drag {
     this._dragStart = this.dragStart.bind(this);
     this._dragMove = this.dragMove.bind(this);
     this._dragEnd = this.dragEnd.bind(this);
-    if("ontouchstart" in window){
-      isMoblie = true;
+    if(isMoblie) {
       this.element.addEventListener('touchstart', this._dragStart, false);
       this.element.addEventListener('touchmove', this._dragMove, false);
       this.element.addEventListener('touchend', this._dragEnd, false);
+      return;
     }
     this.element.addEventListener('mousedown', this._dragStart, false);
   }
 
-  dragStart(e) {
+  dragStart(ev) {
     const element = this.element;
-    const ev = e || window.event;
 
-    
-    if(isMoblie && e.changedTouches){
-      this.clientX = e.changedTouches[0].pageX;
-      this.clientY = e.changedTouches[0].pageY;
-    }else{
+    if(isMoblie && ev.changedTouches) {
+      this.clientX = ev.changedTouches[0].pageX;
+      this.clientY = ev.changedTouches[0].pageY;
+    } else {
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
     }
@@ -49,19 +47,18 @@ class Drag {
     }
   }
 
-  dragMove(e) {
+  dragMove(ev) {
     const element = this.element;
-    const ev = e || window.event;
-    let clientWidth = this.content.offsetWidth;
-    let clientHeight = this.content.offsetHeight;
-    let elementWid = element.offsetWidth;
-    let elementHeight = element.offsetHeight;
+    const clientWidth = this.content.offsetWidth;
+    const clientHeight = this.content.offsetHeight;
+    const elementWid = element.offsetWidth;
+    const elementHeight = element.offsetHeight;
 
-    if(isMoblie && e.changedTouches){
-      this.clientX = e.changedTouches[0].pageX;
-      this.clientY = e.changedTouches[0].pageY;
-      e.preventDefault();
-    }else{
+    if(isMoblie && ev.changedTouches) {
+      this.clientX = ev.changedTouches[0].pageX;
+      this.clientY = ev.changedTouches[0].pageY;
+      ev.preventDefault();
+    } else {
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
     }
@@ -71,27 +68,22 @@ class Drag {
     let top = this.clientY - this.disY;
     if (left < 0) {
       left = 0;
-      return;
     }
 
     if (top < 0) {
       top = 0;
-      return;
     }
 
     if (left > clientWidth - elementWid) {
       left = clientWidth - elementWid;
-      return;
     }
 
     if (top > clientHeight - elementHeight) {
       top = clientHeight - elementHeight;
-      return;
     }
 
     element.style.left = left + "px";
     element.style.top = top + "px";
-
   }
 
   dragEnd() {
