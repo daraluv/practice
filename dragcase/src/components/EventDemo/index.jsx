@@ -6,12 +6,12 @@ class EventDemo extends React.Component {
   }
 
   clickHandler = (event) => {
-    console.log(event.clientX, event.clientY);
+    console.log(event, event.clientY);
   }
 
   render() {
     return (
-      <div onClick={this.clickHandler}>event demo</div>
+      <div onMouseDown={this.clickHandler}>event demo</div>
     )
   }
 }
