@@ -17,8 +17,6 @@ class Drag extends React.Component {
       left:0,
       top:0
     };
-
-    
   }
 
   dragStart(ev) {
@@ -46,7 +44,6 @@ class Drag extends React.Component {
   } 
 
   dragMove(ev) {
-    console.log(this)
     if(isMoblie && ev.changedTouches) {
       this.clientX = ev.changedTouches[0].pageX;
       this.clientY = ev.changedTouches[0].pageY;
@@ -54,8 +51,9 @@ class Drag extends React.Component {
     } else {
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
-    }    
-    console.log(this.clientX , this.disX)
+    }   
+    console.log(this); 
+    console.log(this.clientX , this.disX);
 
     // 元素位置 = 现在鼠标位置 - 元素的偏移值
     let left = this.clientX - this.disX;
@@ -78,11 +76,10 @@ class Drag extends React.Component {
       top = this.clientHeight - this.elementHeight;
     }
 
-     this.setState({
+    this.setState({
       left: left,
       top: top
     });
-    
   }
 
   dragEnd(e) {
