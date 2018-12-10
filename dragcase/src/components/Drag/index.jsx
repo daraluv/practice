@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import './style.css'
 
 var zIndex = 0;//元素层级
@@ -89,12 +90,23 @@ class Drag extends React.Component {
   }
 
   render() {
+    const { className } = this.props;
+    
+    /**
+     * dragbox 为拖拽默认样式
+     * className 表示可以从外部传入class修改样式
+     */
+    const cls = classnames('dragbox', {
+      [className]: !!className
+    })
+
     return (
-      <div className='dargbox' 
-      onTouchStart={this._dragStart} 
-      onTouchMove={(e)=>this._dragMove(e)}
-      onMouseDown={this._dragStart} 
-      style={{left:this.state.left,top:this.state.top}}
+      <div 
+        className={cls}
+        onTouchStart={this._dragStart} 
+        onTouchMove={(e)=>this._dragMove(e)}
+        onMouseDown={this._dragStart} 
+        style={{left:this.state.left,top:this.state.top}}
       >box</div>
     )
   }

@@ -8,8 +8,7 @@ import Drag from './components/Drag';
 // )
 
 const ele2 = (
-  <Drag width ='300' height='400'>
-  </Drag>
+  <Drag width ='300' height='400' className="test"></Drag>
 )
 
 render(ele2, document.querySelector('#root'));
