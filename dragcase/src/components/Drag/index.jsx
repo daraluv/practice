@@ -34,7 +34,6 @@ class Drag extends React.Component {
     this.disY = this.clientY - target.offsetTop;
 
     zIndex += 1;
-    target.style.zIndex = zIndex;
 
     this._dragMove = this.dragMove.bind(this);
     this._dragEnd = this.dragEnd.bind(this);
@@ -90,7 +89,8 @@ class Drag extends React.Component {
   }
 
   render() {
-    const { className } = this.props;
+    const { className, width, height } = this.props;
+    const { left, top } = this.state;
     
     /**
      * dragbox 为拖拽默认样式
@@ -100,13 +100,24 @@ class Drag extends React.Component {
       [className]: !!className
     })
 
+    /**
+     * 支持行内样式改动
+     */
+    const styles = {
+      left,
+      top,
+      width,
+      height,
+      zIndex
+    }
+
     return (
       <div 
         className={cls}
         onTouchStart={this._dragStart} 
         onTouchMove={(e)=>this._dragMove(e)}
         onMouseDown={this._dragStart} 
-        style={{left:this.state.left,top:this.state.top}}
+        style={styles}
       >box</div>
     )
   }
