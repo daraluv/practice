@@ -2,7 +2,7 @@ import React from 'react';
 import './style.css'
 
 var zIndex = 0;//元素层级
-var isMoblie = 'ontouchstart' in window;//是否为是移动端
+var isMoblie = 'ontouchstart' in window;//是否为移动端
 
 class Drag extends React.Component {
   constructor(props) {
@@ -11,17 +11,18 @@ class Drag extends React.Component {
     this.elementHeight = 100;
     this.clientWidth = props.width;
     this.clientHeight = props.height;
+    this._dragStart = this.dragStart.bind(this);
 
     this.state = {
       left:0,
       top:0
     };
+
+    
   }
 
-
   dragStart(ev) {
-    let target = ev.target;
-    
+    let target = ev.target;   
     if(isMoblie && ev.changedTouches) {
       this.clientX = ev.changedTouches[0].pageX;
       this.clientY = ev.changedTouches[0].pageY;
@@ -29,34 +30,31 @@ class Drag extends React.Component {
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
     }
-  
     // 偏移位置 = 鼠标的初始值 - 元素的offset
     this.disX = this.clientX - target.offsetLeft;
     this.disY = this.clientY - target.offsetTop;
 
-
     zIndex += 1;
     target.style.zIndex = zIndex;
 
+    this._dragMove = this.dragMove.bind(this);
+    this._dragEnd = this.dragEnd.bind(this);
     if(!isMoblie) {
-      this._dragMove = this.dragMove.bind(this);
-      this._dragEnd = this.dragEnd.bind(this);
       document.addEventListener('mousemove', this._dragMove, false);
       document.addEventListener('mouseup', this._dragEnd, false);
     }
   } 
 
   dragMove(ev) {
-    console.log(ev)
+    console.log(this)
     if(isMoblie && ev.changedTouches) {
       this.clientX = ev.changedTouches[0].pageX;
       this.clientY = ev.changedTouches[0].pageY;
-      // ev.preventDefault();
+      ev.preventDefault();
     } else {
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
     }    
-
     console.log(this.clientX , this.disX)
 
     // 元素位置 = 现在鼠标位置 - 元素的偏移值
@@ -94,15 +92,14 @@ class Drag extends React.Component {
     }
     document.removeEventListener('mousemove', this._dragMove);
     document.removeEventListener('mouseup', this._dragEnd);
-
   }
 
   render() {
     return (
       <div className='dargbox' 
-      onTouchStart={(e)=>this.dragStart(e)} 
-      onTouchMove={(e)=>this.dragMove(e)}
-      onMouseDown={(e)=>this.dragStart(e)} 
+      onTouchStart={this._dragStart} 
+      onTouchMove={(e)=>this._dragMove(e)}
+      onMouseDown={this._dragStart} 
       style={{left:this.state.left,top:this.state.top}}
       >box</div>
     )
