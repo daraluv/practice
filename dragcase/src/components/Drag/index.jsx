@@ -47,13 +47,10 @@ class Drag extends React.Component {
     if(isMoblie && ev.changedTouches) {
       this.clientX = ev.changedTouches[0].pageX;
       this.clientY = ev.changedTouches[0].pageY;
-      ev.preventDefault();
     } else {
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
     }   
-    console.log(this); 
-    console.log(this.clientX , this.disX);
 
     // 元素位置 = 现在鼠标位置 - 元素的偏移值
     let left = this.clientX - this.disX;
