@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import './style.css'
 
 var zIndex = 0;//元素层级
@@ -7,10 +8,10 @@ var isMoblie = 'ontouchstart' in window;//是否为移动端
 class Drag extends React.Component {
   constructor(props) {
     super(props);
-    this.elementWid = 100;
-    this.elementHeight = 100;
-    this.clientWidth = props.width;
-    this.clientHeight = props.height;
+    this.elementWid = props.width || 100;
+    this.elementHeight = props.height || 100;
+    this.clientWidth = window.innerWidth;
+    this.clientHeight = window.innerHeight;
     this._dragStart = this.dragStart.bind(this);
 
     this.state = {
@@ -33,7 +34,6 @@ class Drag extends React.Component {
     this.disY = this.clientY - target.offsetTop;
 
     zIndex += 1;
-    target.style.zIndex = zIndex;
 
     this._dragMove = this.dragMove.bind(this);
     this._dragEnd = this.dragEnd.bind(this);
@@ -47,13 +47,10 @@ class Drag extends React.Component {
     if(isMoblie && ev.changedTouches) {
       this.clientX = ev.changedTouches[0].pageX;
       this.clientY = ev.changedTouches[0].pageY;
-      ev.preventDefault();
     } else {
       this.clientX = ev.clientX;
       this.clientY = ev.clientY;
     }   
-    console.log(this); 
-    console.log(this.clientX , this.disX);
 
     // 元素位置 = 现在鼠标位置 - 元素的偏移值
     let left = this.clientX - this.disX;
@@ -83,21 +80,40 @@ class Drag extends React.Component {
   }
 
   dragEnd(e) {
-    if(isMoblie) {
-      e.document.touchmove = null;
-      e.target.touchend = null;
-    }
     document.removeEventListener('mousemove', this._dragMove);
     document.removeEventListener('mouseup', this._dragEnd);
   }
 
   render() {
+    const { className, width, height } = this.props;
+    const { left, top } = this.state;
+    
+    /**
+     * dragbox 为拖拽默认样式
+     * className 表示可以从外部传入class修改样式
+     */
+    const cls = classnames('dragbox', {
+      [className]: !!className
+    })
+
+    /**
+     * 支持行内样式改动
+     */
+    const styles = {
+      left,
+      top,
+      width,
+      height,
+      zIndex
+    }
+
     return (
-      <div className='dargbox' 
-      onTouchStart={this._dragStart} 
-      onTouchMove={(e)=>this._dragMove(e)}
-      onMouseDown={this._dragStart} 
-      style={{left:this.state.left,top:this.state.top}}
+      <div 
+        className={cls}
+        onTouchStart={this._dragStart} 
+        onTouchMove={(e)=>this._dragMove(e)}
+        onMouseDown={this._dragStart} 
+        style={styles}
       >box</div>
     )
   }
