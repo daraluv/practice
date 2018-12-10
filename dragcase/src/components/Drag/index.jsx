@@ -8,10 +8,10 @@ var isMoblie = 'ontouchstart' in window;//是否为移动端
 class Drag extends React.Component {
   constructor(props) {
     super(props);
-    this.elementWid = 100;
-    this.elementHeight = 100;
-    this.clientWidth = props.width;
-    this.clientHeight = props.height;
+    this.elementWid = props.width || 100;
+    this.elementHeight = props.height || 100;
+    this.clientWidth = window.innerWidth;
+    this.clientHeight = window.innerHeight;
     this._dragStart = this.dragStart.bind(this);
 
     this.state = {
@@ -80,10 +80,6 @@ class Drag extends React.Component {
   }
 
   dragEnd(e) {
-    if(isMoblie) {
-      e.document.touchmove = null;
-      e.target.touchend = null;
-    }
     document.removeEventListener('mousemove', this._dragMove);
     document.removeEventListener('mouseup', this._dragEnd);
   }
