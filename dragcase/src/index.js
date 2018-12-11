@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Drag from './components/Drag';
+import MoveDirection from './components/MoveDirection';
 
 // const ele1 = (
 //   <div class ='container'>
@@ -8,7 +8,7 @@ import Drag from './components/Drag';
 // )
 
 const ele2 = (
-  <Drag width={200} height={200} className="test"></Drag>
+  <MoveDirection width={200} height={200} className="test" direction='up'></MoveDirection> 
 )
 
 render(ele2, document.querySelector('#root'));
