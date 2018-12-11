@@ -1,12 +1,10 @@
 import React from 'react';
-// import classnames from 'classnames';
 import './style.css';
 
 
 class MoveDirection extends React.Component {
   constructor(props) {
     super(props);
-    this._move = this.move.bind(this);
     this.elementWid = props.width || 100;
     this.elementHeight = props.height || 100;
     this.state = {
@@ -15,9 +13,9 @@ class MoveDirection extends React.Component {
     }
   }
 
-  move(type) {
+  move = (type, e) => {
     let direction = type;
-    let timerId = requestAnimationFrame(this._move);
+    let timerId = requestAnimationFrame(this.move.bind(this, type));
     let clientWidth = document.documentElement.clientWidth;
     let clientHeight = document.documentElement.clientHeight;
     let maxWidth = clientWidth -  this.elementWid;
@@ -25,12 +23,6 @@ class MoveDirection extends React.Component {
     let x = this.state.left;
     let y = this.state.top;
     let directionType = 1;
-
-    switch(direction){
-      case 'left':
-      case 'up': directionType = -1;break;
-      default:break;
-    }
 
     if(direction === 'up' || direction === 'down'){
       y = this.state.top + directionType * 10;
@@ -78,7 +70,7 @@ class MoveDirection extends React.Component {
   }
 
   render() {
-    const { className, width, height } = this.props;
+    const { width, height } = this.props;
     const { left, top } = this.state;
     const styles = {
       left,
@@ -87,17 +79,13 @@ class MoveDirection extends React.Component {
       height
     };
 
-    // const cls = classnames('box', {
-    //   [className]: !!className
-    // });
-
     return (
       <div>
         <div className="btn-group">
-          <button onClick={(e) => this._move('up', e)}>up</button>
-          <button onClick={(e) => this._move('down', e)}>down</button>
-          <button onClick={(e) => this._move('left', e)}>left</button>
-          <button onClick={(e) => this._move('right', e)}>right</button>
+          <button onClick={(e) => this.move('up')}>up</button>
+          <button onClick={(e) => this.move('down')}>down</button>
+          <button onClick={(e) => this.move('left')}>left</button>
+          <button onClick={(e) => this.move('right')}>right</button>
         </div>       
         <div className="box" style={styles}>box</div>
       </div>
