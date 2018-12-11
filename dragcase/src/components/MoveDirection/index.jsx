@@ -1,7 +1,6 @@
 import React from 'react';
 import './style.css';
 
-
 class MoveDirection extends React.Component {
   constructor(props) {
     super(props);
@@ -13,7 +12,7 @@ class MoveDirection extends React.Component {
     }
   }
 
-  move = (type, e) => {
+  move = (type) => {
     this.timerId = requestAnimationFrame(this.move.bind(this, type));
     let clientWidth = document.documentElement.clientWidth;
     let clientHeight = document.documentElement.clientHeight;
@@ -69,10 +68,10 @@ class MoveDirection extends React.Component {
     return (
       <div>
         <div className="btn-group">
-          <button onClick={(e) => this.clickHandler('up')}>up</button>
-          <button onClick={(e) => this.clickHandler('down')}>down</button>
-          <button onClick={(e) => this.clickHandler('left')}>left</button>
-          <button onClick={(e) => this.clickHandler('right')}>right</button>
+          <button onClick={() => this.clickHandler('up')}>up</button>
+          <button onClick={() => this.clickHandler('down')}>down</button>
+          <button onClick={() => this.clickHandler('left')}>left</button>
+          <button onClick={() => this.clickHandler('right')}>right</button>
         </div>       
         <div className="box" style={styles}>box</div>
       </div>
