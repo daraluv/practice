@@ -14,59 +14,46 @@ class MoveDirection extends React.Component {
   }
 
   move = (type, e) => {
-    let direction = type;
-    let timerId = requestAnimationFrame(this.move.bind(this, type));
+    this.timerId = requestAnimationFrame(this.move.bind(this, type));
     let clientWidth = document.documentElement.clientWidth;
     let clientHeight = document.documentElement.clientHeight;
     let maxWidth = clientWidth -  this.elementWid;
     let maxHeight = clientHeight - this.elementHeight;
-    let x = this.state.left;
-    let y = this.state.top;
-    let directionType = 1;
-
-    if(direction === 'up' || direction === 'down'){
-      y = this.state.top + directionType * 10;
     
-      if(y < 0){
-        y = 0;
-        cancelAnimationFrame(timerId);
-        return;
-      }
+    /**
+     * 多使用ES6的语法
+     */
+    let { top, left }  = this.state;
 
-      if(y > maxHeight){
-        y = maxHeight;
-        cancelAnimationFrame(timerId);
-        return;
-      }
-
-      this.setState({
-        top: y
-      });
-
+    // 向上移动，top减少
+    if (type === 'up') {
+      top -= 1;
     }
 
-    if(direction === 'left' || direction === 'right'){
-      x = this.state.left + directionType * 10;
-
-      if(x < 0) {
-        x = 0;
-        cancelAnimationFrame(timerId);
-        return;
-      }
-
-      if(x > maxWidth) {
-        x = maxWidth;
-        cancelAnimationFrame(timerId);
-        return;
-      }
-
-
-      this.setState({
-        left: x,
-      });
+    if (type === 'down') {
+      top += 1;
     }
-    
-  
+
+    if (type === 'left') {
+      left -= 1;
+    }
+
+    if (type === 'right') {
+      left += 1;
+    }
+
+    if (top < 0 || top > maxHeight || left < 0 || left > maxWidth) {
+      return cancelAnimationFrame(this.timerId);
+    }
+
+    this.setState({
+      top, left
+    });
+  }
+
+  clickHandler = (type) => {
+    cancelAnimationFrame(this.timerId);
+    this.move(type);
   }
 
   render() {
@@ -82,10 +69,10 @@ class MoveDirection extends React.Component {
     return (
       <div>
         <div className="btn-group">
-          <button onClick={(e) => this.move('up')}>up</button>
-          <button onClick={(e) => this.move('down')}>down</button>
-          <button onClick={(e) => this.move('left')}>left</button>
-          <button onClick={(e) => this.move('right')}>right</button>
+          <button onClick={(e) => this.clickHandler('up')}>up</button>
+          <button onClick={(e) => this.clickHandler('down')}>down</button>
+          <button onClick={(e) => this.clickHandler('left')}>left</button>
+          <button onClick={(e) => this.clickHandler('right')}>right</button>
         </div>       
         <div className="box" style={styles}>box</div>
       </div>
