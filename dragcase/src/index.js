@@ -8,7 +8,7 @@ import MoveDirection from './components/MoveDirection';
 // )
 
 const ele2 = (
-  <MoveDirection width={200} height={200} className="test" direction='up'></MoveDirection> 
+  <MoveDirection width={100} height={100} className="test"></MoveDirection> 
 )
 
 render(ele2, document.querySelector('#root'));

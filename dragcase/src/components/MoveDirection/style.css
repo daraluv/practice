@@ -1,0 +1,20 @@
+.box{
+	width: 100px;
+	height: 100px;
+	background: #eee;
+	position: absolute;
+	top: 50%;
+	left:50%;
+    text-align: center;
+}
+
+.btn-group{
+    position: fixed;
+    z-index: 9;
+}
+
+button{
+    width: 80px;
+    line-height: 30px;
+    border: 1px solid #eee;
+}
