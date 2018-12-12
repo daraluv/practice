@@ -35,9 +35,9 @@ class ElasticMove extends React.Component {
     this.disX = this.clientX - target.offsetLeft;
     this.disY = this.clientY - target.offsetTop;
 
-
     this._dragMove = this.dragMove.bind(this);
     this._dragEnd = this.dragEnd.bind(this);
+
     if(!isMoblie) {
       document.addEventListener('mousemove', this._dragMove, false);
       document.addEventListener('mouseup', this._dragEnd, false);
@@ -57,7 +57,6 @@ class ElasticMove extends React.Component {
     // 元素位置 = 现在鼠标位置 - 元素的偏移值
     let left = this.clientX - this.disX;
     let top = this.clientY - this.disY;
-
 
     if (left < 0) {
       left = 0;
@@ -86,12 +85,10 @@ class ElasticMove extends React.Component {
     let that = this;
     cancelAnimationFrame(that.timer);
     that.timer = requestAnimationFrame(function fn(){
-      // 速度 += (目标点 - 当前值)/系数; 
-      that.state.speed += (that.targetLocation - that.state.top)/7;
-      //速度 *= 摩擦系数
-      that.state.speed *= 0.7;
-      //距离近且速度小,则终止
-      if(Math.round(that.state.speed) === 0 && Math.round(that.targetLocation - that.state.top) === 0){
+      that.state.speed += (that.targetLocation - that.state.top)/7;// 速度 += (目标点 - 当前值)/系数;    
+      that.state.speed *= 0.7; //速度 *= 摩擦系数
+      
+      if( Math.round(that.state.speed) === 0 && Math.round(that.targetLocation - that.state.top) === 0) { 
         cancelAnimationFrame(that.timer);
       }else{
         that.timer = requestAnimationFrame(fn);
@@ -101,7 +98,8 @@ class ElasticMove extends React.Component {
         top: that.state.top + that.state.speed,
         shadowWid:(that.elementWid*that.state.top)/that.targetLocation,
         shadowHig: (that.elementHeight*that.state.top)/that.targetLocation/2.5
-      });            
+      });  
+                
     });
   }
 
