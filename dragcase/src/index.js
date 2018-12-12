@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import MoveDirection from './components/MoveDirection';
+import ElasticMove from './components/ElasticMove';
 
 // const ele1 = (
 //   <div class ='container'>
@@ -8,7 +8,7 @@ import MoveDirection from './components/MoveDirection';
 // )
 
 const ele2 = (
-  <MoveDirection width={100} height={100} className="test"></MoveDirection> 
+  <ElasticMove width={50} height={50} className="test" targetLocation={500}></ElasticMove> 
 )
 
 render(ele2, document.querySelector('#root'));
