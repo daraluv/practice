@@ -1,5 +1,5 @@
 import React from 'react';
-// import classnames from 'classnames';
+import classnames from 'classnames';
 import './style.css'
 
 var isMoblie = 'ontouchstart' in window;//是否为移动端
@@ -115,17 +115,15 @@ class ElasticMove extends React.Component {
     const { width, height } = this.props;
     const { top, shadowWid, shadowHig } = this.state;
 
-    // const cls = classnames('ballbox', {
-    //   [className]: !!className
-    // })
+    const cls = classnames('ballbox', {
+      [className]: !!className
+    })
 
     const styles = {
       top,
       width,
       height
     }
-
-    // console.log(shadowWid,shadowHig)
 
     const shadowStyles = {
       width:shadowWid,
