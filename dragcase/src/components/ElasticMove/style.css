@@ -1,0 +1,28 @@
+.content{
+	margin: 0 auto; 
+	width: 50px;
+ 	position: relative;
+}
+
+.ballbox{
+ 	width: 50px;
+ 	height: 50px;
+ 	border-radius: 50%;
+ 	background: radial-gradient(#f9dfa1,#d4af55);
+ 	position: absolute;
+ 	top: 500px;
+ 	z-index: 9;
+}
+
+.shadow{
+	width: 50px;
+	height: 25px;
+	border-radius: 50%;
+	background: radial-gradient(#ccc,#f0f0f0,transparent);
+	position: absolute;
+ 	top: 540px;
+ 	left: 50%;
+ 	transform: translateX(-50%);
+ 	z-index: 0;
+}
+

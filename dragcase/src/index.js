@@ -1,5 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
+<<<<<<< HEAD
 import Animate from './components/Animate';
 
 // const ele1 = (
@@ -8,6 +9,7 @@ import Animate from './components/Animate';
 // )
 
 const ele2 = (
+
   <Animate width={100} height={100} type={'top'} className="test"></Animate> 
 )
 
