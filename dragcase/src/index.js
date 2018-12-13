@@ -8,7 +8,6 @@ import Animate from './components/Animate';
 // )
 
 const ele2 = (
-
   <Animate width={100} height={100} type={'top'} className="test"></Animate> 
 )
 

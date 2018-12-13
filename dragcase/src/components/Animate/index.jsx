@@ -2,7 +2,6 @@ import React from 'react';
 import Tween from './Tween.js';
 import './style.css';
 
-
 class Animate extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +19,7 @@ class Animate extends React.Component {
 
   move = (type,subType) => {
     this.timerId = requestAnimationFrame(this.move.bind(this, type, subType));
-    
+
     if(this.nowTimes < this.moveNum){
       this.nowTimes ++;     
     }else{
