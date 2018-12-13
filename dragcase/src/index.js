@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import MoveDirection from './components/MoveDirection';
+import Animate from './components/Animate';
 
 // const ele1 = (
 //   <div class ='container'>
@@ -8,7 +8,7 @@ import MoveDirection from './components/MoveDirection';
 // )
 
 const ele2 = (
-  <MoveDirection width={100} height={100} className="test"></MoveDirection> 
+  <Animate width={100} height={100} type={'top'} className="test"></Animate> 
 )
 
 render(ele2, document.querySelector('#root'));
