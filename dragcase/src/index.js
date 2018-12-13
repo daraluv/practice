@@ -1,6 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-<<<<<<< HEAD
 import Animate from './components/Animate';
 
 // const ele1 = (
