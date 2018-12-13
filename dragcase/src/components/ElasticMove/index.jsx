@@ -128,8 +128,9 @@ class ElasticMove extends React.Component {
       height:shadowHig
     }
 
+
     return (
-      <div>
+      <div className="content" width={this.props.width}>
         <div 
           className="ballbox"
           onTouchStart={this._dragStart} 
