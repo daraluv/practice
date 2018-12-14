@@ -7,10 +7,10 @@ class Animate extends React.Component {
     super(props);
     this.from = props.from || 200;
     this.to = props.to || 150;
-    this.duration = props.duration || 2000;
+    this.duration = props.duration || 1000;
     this.type = props.type;
-    this.nowTimes = 0;//当前次数值
-    this.moveNum = parseInt(this.duration/16.66); //实际次数
+    this.nowTimes = 0; // 当前次数值
+    this.moveNum = parseInt(this.duration/16.66); // 实际次数
 
     this.state = {
       [this.type]:this.from
@@ -20,15 +20,15 @@ class Animate extends React.Component {
   move = (type,subType) => {
     this.timerId = requestAnimationFrame(this.move.bind(this, type, subType));
 
-    if(this.nowTimes < this.moveNum){
-      this.nowTimes ++;     
-    }else{
-      cancelAnimationFrame(this.timerId);  
+    if(this.nowTimes < this.moveNum) {
+      this.nowTimes ++;
+    } else {
+      cancelAnimationFrame(this.timerId);
     }
    
     this.setState({
-      [this.type ]: Tween[type][subType](this.nowTimes, this.from, this.to, this.moveNum),
-    });    
+      [this.type]: Tween[type][subType](this.nowTimes, this.from, this.to, this.moveNum),
+    });
   }
 
   clickHandler = (type,subType) => {
@@ -38,13 +38,13 @@ class Animate extends React.Component {
 
   render() {
     const styles = {
-     [this.type]:this.state[this.type]
+     [this.type]: this.state[this.type]
     }
 
     return (
      <div>
         <div className="btn-group">
-          <button onClick={() => this.clickHandler('Elastic','easeIn')}>Elastic/easeIn</button>
+          <button onClick={() => this.clickHandler('Elastic', 'easeIn')}>Elastic/easeIn</button>
         </div>       
         <div className="box" style={styles}></div>
       </div>

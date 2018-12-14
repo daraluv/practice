@@ -8,7 +8,7 @@ import Animate from './components/Animate';
 // )
 
 const ele2 = (
-  <Animate width={100} height={100} type={'top'} className="test"></Animate> 
+  <Animate width={100} height={100} type={'left'} className="test"></Animate> 
 )
 
 render(ele2, document.querySelector('#root'));

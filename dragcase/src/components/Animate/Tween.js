@@ -1,13 +1,9 @@
 /*
- * Tween.js
- * t: current time（当前时间）；
- * b: beginning value（初始值）；
- * c: change in value（变化量）；
- * d: duration（持续时间）。
+ * t: current time（当前时间）
+ * b: beginning value（初始值）
+ * c: change in value（变化量）
+ * d: duration（持续时间）
 */
-/*
-/
- */
 var Tween = {
   Linear: function (t, b, c, d) {
     return c * t / d + b;
@@ -73,14 +69,14 @@ var Tween = {
   },
   Expo: {
     easeIn: function (t, b, c, d) {
-      return (t == 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
+      return (t === 0) ? b : c * Math.pow(2, 10 * (t / d - 1)) + b;
     },
     easeOut: function (t, b, c, d) {
-      return (t == d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
+      return (t === d) ? b + c : c * (-Math.pow(2, -10 * t / d) + 1) + b;
     },
     easeInOut: function (t, b, c, d) {
-      if (t == 0) return b;
-      if (t == d) return b + c;
+      if (t === 0) return b;
+      if (t === d) return b + c;
       if ((t /= d / 2) < 1) return c / 2 * Math.pow(2, 10 * (t - 1)) + b;
       return c / 2 * (-Math.pow(2, -10 * --t) + 2) + b;
     }
@@ -101,9 +97,9 @@ var Tween = {
     easeIn: function (t, b, c, d, a, p) {
       // console.log(t, b, c, d, a, p)
       var s;
-      if (t == 0) return b;
-      if ((t /= d) == 1) return b + c;
-      if (typeof p == "undefined") p = d * .3;
+      if (t === 0) return b;
+      if ((t /= d) === 1) return b + c;
+      if (typeof p === "undefined") p = d * .3;
       if (!a || a < Math.abs(c)) {
         s = p / 4;
         a = c;
@@ -114,9 +110,9 @@ var Tween = {
     },
     easeOut: function (t, b, c, d, a, p) {
       var s;
-      if (t == 0) return b;
-      if ((t /= d) == 1) return b + c;
-      if (typeof p == "undefined") p = d * .3;
+      if (t === 0) return b;
+      if ((t /= d) === 1) return b + c;
+      if (typeof p === "undefined") p = d * .3;
       if (!a || a < Math.abs(c)) {
         a = c;
         s = p / 4;
@@ -127,9 +123,9 @@ var Tween = {
     },
     easeInOut: function (t, b, c, d, a, p) {
       var s;
-      if (t == 0) return b;
-      if ((t /= d / 2) == 2) return b + c;
-      if (typeof p == "undefined") p = d * (.3 * 1.5);
+      if (t === 0) return b;
+      if ((t /= d / 2) === 2) return b + c;
+      if (typeof p === "undefined") p = d * (.3 * 1.5);
       if (!a || a < Math.abs(c)) {
         a = c;
         s = p / 4;
@@ -142,15 +138,15 @@ var Tween = {
   },
   Back: {
     easeIn: function (t, b, c, d, s) {
-      if (typeof s == "undefined") s = 1.70158;
+      if (typeof s === "undefined") s = 1.70158;
       return c * (t /= d) * t * ((s + 1) * t - s) + b;
     },
     easeOut: function (t, b, c, d, s) {
-      if (typeof s == "undefined") s = 1.70158;
+      if (typeof s === "undefined") s = 1.70158;
       return c * ((t = t / d - 1) * t * ((s + 1) * t + s) + 1) + b;
     },
     easeInOut: function (t, b, c, d, s) {
-      if (typeof s == "undefined") s = 1.70158;
+      if (typeof s === "undefined") s = 1.70158;
       if ((t /= d / 2) < 1) return c / 2 * (t * t * (((s *= (1.525)) + 1) * t - s)) + b;
       return c / 2 * ((t -= 2) * t * (((s *= (1.525)) + 1) * t + s) + 2) + b;
     }
@@ -179,6 +175,5 @@ var Tween = {
     }
   }
 }
-Math.tween = Tween;
 
-export default  Tween
+export default Tween;
