@@ -13,22 +13,24 @@ class Animate extends React.Component {
     this.moveNum = parseInt(this.duration/16.66); // 实际次数
 
     this.state = {
-      [this.type]:this.from
+      [this.type]: this.from
     };
   }
 
   move = (type,subType) => {
-    this.timerId = requestAnimationFrame(this.move.bind(this, type, subType));
-
-    if(this.nowTimes < this.moveNum) {
-      this.nowTimes ++;
-    } else {
-      cancelAnimationFrame(this.timerId);
-    }
-   
+    /**
+     * 代码执行顺序调整，从可读性和逻辑上更合理，功能实现上无变化
+     */
     this.setState({
       [this.type]: Tween[type][subType](this.nowTimes, this.from, this.to, this.moveNum),
     });
+
+    if(this.nowTimes < this.moveNum) {
+      this.nowTimes ++;
+      this.timerId = requestAnimationFrame(this.move.bind(this, type, subType));
+    } else {
+      cancelAnimationFrame(this.timerId);
+    }
   }
 
   clickHandler = (type,subType) => {
