@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Animate from './components/Animate';
+import Slider from './components/Slider';
 
 // const ele1 = (
 //   <div class ='container'>
@@ -8,7 +8,7 @@ import Animate from './components/Animate';
 // )
 
 const ele2 = (
-  <Animate width={100} height={100} type={'left'} className="test"></Animate> 
+  <Slider></Slider> 
 )
 
 render(ele2, document.querySelector('#root'));

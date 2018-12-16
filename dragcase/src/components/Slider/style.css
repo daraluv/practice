@@ -1,0 +1,53 @@
+.container{
+    width: 200px;
+    height: 100px;
+    background: #ccc;
+    position: relative;
+    overflow: hidden;
+}
+
+ul,li{
+    margin:0;
+    padding: 0; 
+}
+li{
+    list-style: none;
+}
+
+.sliderContent{
+    /*width: 1000%;*/
+    height: 100%;
+    position: absolute;
+    left: 0;
+    display: flex;
+}
+
+.sliderList{
+    width: 200px;
+    height: 100%;
+}
+
+.sliderList:nth-child(even){
+    background: red;
+}
+
+.sliderList:nth-child(odd){
+    background: blue;
+}
+
+.turnDir{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 9;
+}
+
+.prev,.next{
+    width: 30px;
+    height: 30px;
+    background: #ccc;
+}
+
