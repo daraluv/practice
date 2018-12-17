@@ -1,5 +1,5 @@
 export function dragDirection(ele,callback){
-  console.log(ele)
+  console.log(12222)
   var firstX = 0,firstY = 0,endX = 0,endY = 0;
   ele.addEventListener("touchstart",function(e){
     firstX = e.targetTouches[0].clientX; //初始位置
@@ -18,7 +18,6 @@ export function dragDirection(ele,callback){
       }else{
         direction = moveY > 0 ? 'down' : 'top';                       
       }
-      // console.log(direction);
       callback(direction);
     }
   })

@@ -17,7 +17,6 @@ class Slider extends React.Component {
 
   touched = (e) => {
     this.slider.touchHandle();
-    // console.log(e)
   }
 
   componentDidMount() {
