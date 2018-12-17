@@ -1,21 +1,27 @@
 import React from 'react';
-import  * as setSlider from './setSlider.js';
+import Setslider from './setSlider.js';
 import './style.css';
 
 class Slider extends React.Component {
   constructor(){
     super();  
-
   }
 
-  // clickHandler = () => {
-  //   setSlider.prev(this.refs.sliderContent,this.refs.sliderList,{
-  //     speed: 1500,
-  //   });
-  // }
+  clickPrev = () => {
+    this.slider.prev();
+  }
+
+  clickNext = () => {
+    this.slider.next();
+  }
+
+  touched = (e) => {
+    this.slider.touchHandle();
+    // console.log(e)
+  }
 
   componentDidMount() {
-    setSlider.slider(this.refs.sliderContent,this.refs.sliderList,{
+    this.slider = new Setslider(this.refs.container,this.refs.sliderContent,{
       speed: 1500,
     });
   }
@@ -23,17 +29,15 @@ class Slider extends React.Component {
 
   render() {
     return (
-     <div className="container" >
-        <div className="turnDir">
-          <div className="prev" onClick={this.clickHandler}></div>
-          <div className="next"></div>
-        </div>
+     <div className="container" ref="container" onTouchStart={(e)=>this.touched(e)}>
+        <div className="prev" onClick={this.clickPrev}></div>
+        <div className="next" onClick={this.clickNext}></div>
         <ul className="sliderContent" ref="sliderContent">
-            <li className="sliderList" ref="sliderList"></li>
-            <li className="sliderList" ></li>
-            <li className="sliderList" ></li>
-            <li className="sliderList" ></li>
-            <li className="sliderList" ></li>
+            <li className="sliderList" >1</li>
+            <li className="sliderList" >2</li>
+            <li className="sliderList" >3</li>
+            <li className="sliderList" >4</li>
+            <li className="sliderList" >5</li>
         </ul>
       </div>
     )

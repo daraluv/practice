@@ -1,71 +1,86 @@
 import { animationFrame, cancelFrame, getStyle } from '../Animate/css3support';
-import {animate} from '../Animate/animate';
+import { animate } from '../Animate/animate';
+import { dragDirection } from './dragDirection.js'
 
 const defaultConfig = {
   speed: 2000,
   direction: 'X',
   autoplay: true,
-  loop: true,
-  effect: 'elasticInOut'
+  effect: 'elasticInOut',
+  index:0
 }
 
-let index = 0;
-let dir,timer;
+class Setslider {
+  constructor(ele,child,config = {}){
+    this._config = {...defaultConfig,...config};
+    this.ele = ele;
+    this.child = child;
+    if (!ele || typeof ele !== 'object') {
+      return;
+    }
+    this.length = this.child.childNodes.length;
+    this.width = getStyle( this.ele,'width');
+    this.height = getStyle( this.ele,'height');
 
-export function slider(ele,child,config = {}){
-  const _config = {
-    ...defaultConfig,
-    ...config
-  }
-
-  if (!ele || typeof ele !== 'object') {
-    return;
-  }
-
-  let _width = getStyle(child, 'width');
-  let _height = getStyle(child, 'height');
-  let length = ele.childNodes.length;
-
- 
-  if(_config.direction == 'X') {
-    dir = parseInt(_width);
-  }else{
-    dir = parseInt(_height);
-  }
-
-  function move(){
-    if(index < length-1){
-      index++;  
-      animate(ele, _config.effect, {
-        to: - dir,
-        direction: _config.direction
-      }); 
+    if(this._config.direction == 'X') {
+      this.dir = parseInt(this.width);
     }else{
-      if(!_config.loop){
-        clearInterval(timer)
-      }else{
-        index = 0;
-        dir *= -1
-      }
+      this.dir = parseInt(this.height);
+    }
+    this.timer = 0;
+ 
+    if(this._config.autoplay){
+      this.timer = setInterval(this.move,this._config.speed);    
     }
   }
 
-  if(_config.autoplay){
-    timer = setInterval(move,_config.speed);
+ setIndex = () => {
+    if(this._config.index >= 0 && this._config.index < this.length-1){
+      animate(this.child, this._config.effect, {
+        to: - this.dir,
+        direction: this._config.direction
+      }); 
+    }else if(this._config.index === this.length){
+      this._config.index = 0;
+    }else if(this._config.index < 0){
+      this._config.index = this.length - 1;
+    }
+    console.log(this._config.index)
   }
+
+  move = () => {
+    this._config.index++;
+    this.setIndex();
+  }
+
+  prev = () => {
+    clearInterval(this.timer);
+    this._config.index--;
+    this.setIndex();
+  }
+
+  next = () => {
+    clearInterval(this.timer);
+    this._config.index ++;
+    this.setIndex();
+  }
+
+  touchHandle = () => {
+    let that = this;
+    dragDirection(this.ele,
+      function (direction) {
+        if(direction =='left' || direction =='down'){
+          that.next();
+        }
+
+        if(direction =='right'|| direction =='top'){
+           that.prev();
+        }                  
+      }
+        
+    )
+  }
+
 }
 
-export function prev(ele,child,config = {}){
-  index ++;
-  clearInterval(timer);
-  animate(ele, _config.effect, {
-    to: - dir,
-  }); 
-
-}
-
-export function next(){
-  index ++;
-}
-
-
+export default Setslider
