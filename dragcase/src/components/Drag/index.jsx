@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+// import classnames from 'classnames';
 import './style.css'
 
 var zIndex = 0;//元素层级
@@ -41,6 +41,11 @@ class Drag extends React.Component {
       document.addEventListener('mousemove', this._dragMove, false);
       document.addEventListener('mouseup', this._dragEnd, false);
     }
+
+    return  {
+      X: this.clientX,
+      Y: this.clientY
+    }
   } 
 
   dragMove(ev) {
@@ -55,7 +60,6 @@ class Drag extends React.Component {
     // 元素位置 = 现在鼠标位置 - 元素的偏移值
     let left = this.clientX - this.disX;
     let top = this.clientY - this.disY;
-
 
     if (left < 0) {
       left = 0;
@@ -77,6 +81,11 @@ class Drag extends React.Component {
       left: left,
       top: top
     });
+
+    return  {
+      X: this.clientX,
+      Y: this.clientY
+    }
   }
 
   dragEnd(e) {
@@ -92,9 +101,9 @@ class Drag extends React.Component {
      * dragbox 为拖拽默认样式
      * className 表示可以从外部传入class修改样式
      */
-    const cls = classnames('dragbox', {
-      [className]: !!className
-    })
+    // const cls = classnames('dragbox', {
+    //   [className]: !!className
+    // })
 
     /**
      * 支持行内样式改动
@@ -109,7 +118,7 @@ class Drag extends React.Component {
 
     return (
       <div 
-        className={cls}
+        className='dragbox'
         onTouchStart={this._dragStart} 
         onTouchMove={(e)=>this._dragMove(e)}
         onMouseDown={this._dragStart} 

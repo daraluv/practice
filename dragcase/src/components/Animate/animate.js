@@ -84,6 +84,8 @@ export function animate(ele, ease = 'easeIn', config = {}, callback = noop) {
   let timer = null;
   const times = parseInt(_config.duration / 16.67);
 
+  console.log('位置',currentPos)
+
   function step() {
     currentPos = animateType[ease](timeCount, _config.from, _config.to, times);
     ele.style.transform = `translate${_config.direction}(${currentPos}px)`;

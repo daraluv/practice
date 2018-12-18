@@ -25,16 +25,16 @@ li{
     display: flex;
 }
 
-.sliderList{
+.sliderItem{
     width: 200px;
     height: 100%;
 }
 
-.sliderList:nth-child(even){
+.sliderItem:nth-child(even){
     background: red;
 }
 
-.sliderList:nth-child(odd){
+.sliderItem:nth-child(odd){
     background: blue;
 }
 

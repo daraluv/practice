@@ -1,42 +1,106 @@
 import React from 'react';
-import Setslider from './setSlider.js';
+import { animationFrame, cancelFrame, getStyle } from '../Animate/css3support';
+import { animate } from '../Animate/animate';
+import Drag from '../Drag/index';
 import './style.css';
 
 class Slider extends React.Component {
-  constructor(){
-    super();  
+  constructor(props){
+    super(props); 
+    this.speed = this.props.speed || 2000;
+    this.direction = this.props.direction ||'X';
+    this.auto = this.props.auto || true;
+    this.effect = this.props.effect ||'elasticInOut';
+    this.data = this.props.data || [];
+    this.length = this.data.length + 1;
+    this.width = this.props.width || 200;
+    this.height = this.props.width || 100;
+    this.index = 0;
+    this.timer = 0;
+
+    if(this.direction === 'X') {
+      this.dir = parseInt(this.width);
+    }else{
+      this.dir = parseInt(this.height);
+    }
+
+    if(this.auto) {
+      this.timer = setInterval(this.autoPlay,this.speed);    
+    }
+
+  }
+
+  setIndex = () => {
+    if(this.index === this.length - 1) {
+      this.index = 0;
+    }
+
+    if(this.index < 0) {
+      this.index = this.length - 1;
+    }
+
+    animate(this.refs.sliderContent, this.effect, {
+      from: -this.dir * (this.index -1),
+      to: -this.dir,
+      direction: this.direction
+    });     
   }
 
   clickPrev = () => {
-    this.slider.prev();
+    clearInterval(this.timer);
+    this.index --;
+    this.setIndex();
   }
 
   clickNext = () => {
-    this.slider.next();
+    clearInterval(this.timer);
+    this.index ++;
+    this.setIndex();
   }
 
-  touched = (e) => {
-    this.slider.touchHandle();
+  autoPlay = () => {
+    this.index ++;
+    this.setIndex();
   }
 
-  componentDidMount() {
-    this.slider = new Setslider(this.refs.container,this.refs.sliderContent,{
-      speed: 1500,
-    });
+  touchStart = (e) => {
+    this.drag = new Drag(this.width);
+    this.startVal = this.drag.dragStart(e);
   }
 
+  touchEnd = (e) => {
+    this.endVal = this.drag.dragMove(e);
+    let that = this;
+    let moveX = this.endVal.X - this.startVal.X;
+    let moveY = this.endVal.Y - this.startVal.Y;
+    let direction = 'left';
+    if(Math.abs(moveX) > 60 || Math.abs(moveY) > 60){
+      if(Math.abs(moveX) > Math.abs(moveY)){
+        direction = moveX > 0 ? 'right' : 'left';             
+      }else{
+        direction = moveY > 0 ? 'down' : 'top';                       
+      }
+
+      if(direction ==='left' || direction ==='down') {
+        this.clickNext();
+      }
+
+      if(direction ==='right'|| direction === 'top') {
+        this.clickPrev();
+      }   
+    }
+  }
 
   render() {
+    const sliderItem = [...this.data,this.data[0]];
     return (
-     <div className="container" ref="container" onTouchStart={(e)=>this.touched(e)}>
+     <div className="container" ref="container" onTouchStart={(e)=>this.touchStart(e)}  onTouchEnd={(e)=>this.touchEnd(e)}>
         <div className="prev" onClick={this.clickPrev}></div>
         <div className="next" onClick={this.clickNext}></div>
-        <ul className="sliderContent" ref="sliderContent">
-            <li className="sliderList" >1</li>
-            <li className="sliderList" >2</li>
-            <li className="sliderList" >3</li>
-            <li className="sliderList" >4</li>
-            <li className="sliderList" >5</li>
+        <ul className="sliderContent" ref="sliderContent">           
+          {sliderItem.map((item,i) =>
+            <li className="sliderItem" key={i}>{item}</li>)
+          }
         </ul>
       </div>
     )
