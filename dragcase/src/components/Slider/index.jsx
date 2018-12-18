@@ -31,19 +31,22 @@ class Slider extends React.Component {
   }
 
   setIndex = () => {
-    if(this.index === this.length - 1) {
-      this.index = 0;
-    }
-
-    if(this.index < 0) {
-      this.index = this.length - 1;
-    }
-
-    animate(this.refs.sliderContent, this.effect, {
+    const ele = this.refs.sliderContent;
+    animate(ele, this.effect, {
       from: -this.dir * (this.index -1),
       to: -this.dir,
       direction: this.direction
-    });     
+    }, () => {
+      if (this.index === this.length - 1) {
+        this.index = 0;
+        ele.style.transform = `translate${this.direction}(${0}px)`;
+      }
+
+      if (this.index < 0) {
+        this.index = this.length - 1;
+        ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
+      }
+    });
   }
 
   clickPrev = () => {
