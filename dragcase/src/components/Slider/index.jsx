@@ -1,5 +1,5 @@
 import React from 'react';
-import { animationFrame, cancelFrame, getStyle } from '../Animate/css3support';
+// import { animationFrame, cancelFrame, getStyle } from '../Animate/css3support';
 import { animate } from '../Animate/animate';
 import Drag from '../Drag/index';
 import './style.css';
@@ -31,13 +31,15 @@ class Slider extends React.Component {
   }
 
   setIndex = () => {
-    const ele = this.refs.sliderContent;
+    const ele = this.refs.sliderContent;     
     animate(ele, this.effect, {
-      from: -this.dir * (this.index -1),
+      from: -this.dir * (this.index-1),
       to: -this.dir,
-      direction: this.direction
+      direction: this.direction,
+      maxVal: -this.dir * (this.length -1)
     }, () => {
-      if (this.index === this.length - 1) {
+
+      if (this.index >= this.length - 1) {
         this.index = 0;
         ele.style.transform = `translate${this.direction}(${0}px)`;
       }
@@ -46,7 +48,9 @@ class Slider extends React.Component {
         this.index = this.length - 1;
         ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
       }
-    });
+
+    });   
+    console.log(this.index)
   }
 
   clickPrev = () => {
@@ -66,22 +70,15 @@ class Slider extends React.Component {
     this.setIndex();
   }
 
-  touchStart = (e) => {
-    this.drag = new Drag(this.width);
-    this.startVal = this.drag.dragStart(e);
-  }
-
-  touchEnd = (e) => {
-    this.endVal = this.drag.dragMove(e);
+  touchEnd = (dis) => {
+    console.log(dis)
     let that = this;
-    let moveX = this.endVal.X - this.startVal.X;
-    let moveY = this.endVal.Y - this.startVal.Y;
     let direction = 'left';
-    if(Math.abs(moveX) > 60 || Math.abs(moveY) > 60){
-      if(Math.abs(moveX) > Math.abs(moveY)){
-        direction = moveX > 0 ? 'right' : 'left';             
+    if(Math.abs(dis.X) > 60 || Math.abs(dis.Y) > 60){
+      if(Math.abs(dis.X) > Math.abs(dis.Y)){
+        direction = dis.X > 0 ? 'right' : 'left';             
       }else{
-        direction = moveY > 0 ? 'down' : 'top';                       
+        direction = dis.Y > 0 ? 'down' : 'top';                       
       }
 
       if(direction ==='left' || direction ==='down') {
@@ -91,20 +88,23 @@ class Slider extends React.Component {
       if(direction ==='right'|| direction === 'top') {
         this.clickPrev();
       }   
+      console.log(direction)
     }
   }
 
   render() {
     const sliderItem = [...this.data,this.data[0]];
     return (
-     <div className="container" ref="container" onTouchStart={(e)=>this.touchStart(e)}  onTouchEnd={(e)=>this.touchEnd(e)}>
+     <div className="container" ref="container" >
         <div className="prev" onClick={this.clickPrev}></div>
         <div className="next" onClick={this.clickNext}></div>
-        <ul className="sliderContent" ref="sliderContent">           
-          {sliderItem.map((item,i) =>
-            <li className="sliderItem" key={i}>{item}</li>)
-          }
-        </ul>
+        <div ref="sliderContent" >
+          <Drag className="sliderContent" onDragEnd={this.touchEnd}>           
+            {sliderItem.map((item,i) =>
+              <li className="sliderItem" key={i}>{item}</li>)
+            }
+          </Drag>
+        </div>
       </div>
     )
   }

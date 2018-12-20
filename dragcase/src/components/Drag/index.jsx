@@ -1,5 +1,5 @@
 import React from 'react';
-// import classnames from 'classnames';
+import classnames from 'classnames';
 import './style.css'
 
 var zIndex = 0;//元素层级
@@ -10,8 +10,8 @@ class Drag extends React.Component {
     super(props);
     this.elementWid = props.width || 100;
     this.elementHeight = props.height || 100;
-    this.clientWidth = window.innerWidth;
-    this.clientHeight = window.innerHeight;
+    this.clientWidth = props.maxWidth;
+    this.clientHeight = props.maxHeight;
     this._dragStart = this.dragStart.bind(this);
 
     this.state = {
@@ -23,29 +23,25 @@ class Drag extends React.Component {
   dragStart(ev) {
     let target = ev.target;   
     if(isMoblie && ev.changedTouches) {
-      this.clientX = ev.changedTouches[0].pageX;
-      this.clientY = ev.changedTouches[0].pageY;
+      this.startX = ev.changedTouches[0].pageX;
+      this.startY = ev.changedTouches[0].pageY;
     } else {
-      this.clientX = ev.clientX;
-      this.clientY = ev.clientY;
+      this.startX = ev.clientX;
+      this.startY = ev.clientY;
     }
     // 偏移位置 = 鼠标的初始值 - 元素的offset
-    this.disX = this.clientX - target.offsetLeft;
-    this.disY = this.clientY - target.offsetTop;
+    this.disX = this.startX - target.offsetLeft;
+    this.disY = this.startY - target.offsetTop;
 
     zIndex += 1;
 
     this._dragMove = this.dragMove.bind(this);
     this._dragEnd = this.dragEnd.bind(this);
+
     if(!isMoblie) {
       document.addEventListener('mousemove', this._dragMove, false);
       document.addEventListener('mouseup', this._dragEnd, false);
-    }
-
-    return  {
-      X: this.clientX,
-      Y: this.clientY
-    }
+    }   
   } 
 
   dragMove(ev) {
@@ -82,35 +78,44 @@ class Drag extends React.Component {
       top: top
     });
 
-    return  {
-      X: this.clientX,
-      Y: this.clientY
-    }
   }
 
   dragEnd(e) {
+    const {onDragEnd} = this.props;
     document.removeEventListener('mousemove', this._dragMove);
     document.removeEventListener('mouseup', this._dragEnd);
+    onDragEnd && onDragEnd({
+      X: this.startX - this.clientX,
+      Y: this.startY -this.clientY
+    })
   }
 
   render() {
     const { className, width, height } = this.props;
     const { left, top } = this.state;
+    // let direction = 'X',dir = 'left';
+    
+    // if(this.state.left) {
+    //   direction = 'X';
+    //   dir =this.state.left
+    // }else{
+    //   direction = 'Y';
+    //   dir = this.state.top
+    // }
     
     /**
      * dragbox 为拖拽默认样式
      * className 表示可以从外部传入class修改样式
      */
-    // const cls = classnames('dragbox', {
-    //   [className]: !!className
-    // })
+    const cls = classnames('dragbox', {
+      [className]: !!className
+    })
 
     /**
      * 支持行内样式改动
      */
     const styles = {
-      left,
-      top,
+      // transform :`translate${direction}(${dir}px)`,
       width,
       height,
       zIndex
@@ -118,12 +123,16 @@ class Drag extends React.Component {
 
     return (
       <div 
-        className='dragbox'
+        className ={cls}
         onTouchStart={this._dragStart} 
         onTouchMove={(e)=>this._dragMove(e)}
+        onTouchEnd ={this._dragEnd}
         onMouseDown={this._dragStart} 
+        onMouseUp={this._dragEnd}
         style={styles}
-      >box</div>
+      >
+        {this.props.children}
+      </div>
     )
   }
 }
