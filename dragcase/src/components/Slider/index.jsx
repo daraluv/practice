@@ -25,32 +25,54 @@ class Slider extends React.Component {
     }
 
     if(this.auto) {
-      this.timer = setInterval(this.autoPlay,this.speed);    
+      this.timer = setInterval(this.autoPlay, this.speed);    
     }
-
   }
 
-  setIndex = () => {
-    const ele = this.refs.sliderContent;     
-    animate(ele, this.effect, {
-      from: -this.dir * (this.index-1),
-      to: -this.dir,
-      direction: this.direction,
-      maxVal: -this.dir * (this.length -1)
-    }, () => {
+  /**
+   * 移动到第几页
+   * @param {number} index 第几页
+   * @param {string} direction 方向，从 'left, right, up, down' 中取一个作为值
+   */
+  setIndex = (direction) => {
+    let from = 0;
+    let to = 0;
+    const ele = this.refs.sliderContent;    
 
-      if (this.index >= this.length - 1) {
-        this.index = 0;
+    /**
+     * 点击左侧按钮，往右移动，上一页的意思
+     * index 递减
+     */
+    if (direction === 'left') {
+      from = - this.index * this.dir;
+      to = - (this.index - 1) * this.dir;
+      this.index = (this.index === 0) ? (this.length - 1) : (this.index - 1);
+    }
+
+    /**
+     * 点击右侧按钮，往左移动，下一页的意思，并且是水平方向的默认方向
+     * index 递增
+     */
+    if (direction === 'right') {
+      from = - this.index * this.dir;
+      to = - (this.index + 1) * this.dir;
+      console.log('pre', this.index)
+      this.index = (this.index === this.length - 1) ? 0 : (this.index + 1);
+      console.log('nex', this.index)
+    }
+
+    animate(ele, this.effect, { 
+      from, 
+      to,
+      direction: this.direction
+    }, () => {
+      if (direction === 'right' && this.index === 0) {
         ele.style.transform = `translate${this.direction}(${0}px)`;
       }
-
-      if (this.index < 0) {
-        this.index = this.length - 1;
+      if (direction === 'left' && this.index === this.length - 1) {
         ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
       }
-
-    });   
-    console.log(this.index)
+    })
   }
 
   clickPrev = () => {
@@ -66,8 +88,7 @@ class Slider extends React.Component {
   }
 
   autoPlay = () => {
-    this.index ++;
-    this.setIndex();
+    this.setIndex('right');
   }
 
   touchEnd = (dis) => {
@@ -93,7 +114,7 @@ class Slider extends React.Component {
   }
 
   render() {
-    const sliderItem = [...this.data,this.data[0]];
+    const sliderItem = [...this.data, this.data[0]];
     return (
      <div className="container" ref="container" >
         <div className="prev" onClick={this.clickPrev}></div>

@@ -11,8 +11,7 @@ const defaultConfig = {
   from: 0,
   to: 200,
   duration: 600,
-  direction: 'X',
-  maxVal: - 1000
+  direction: 'X'
 }
 
 /**
@@ -65,11 +64,6 @@ export function animate(ele, ease = 'easeIn', config = {}, callback = noop) {
     return;
   }
 
-  if(_config.from < _config.maxVal) {
-    ele.style.transform = `translate${_config.direction}(${_config.maxVal}px)`;
-    _config.from = _config.maxVal;
-  }
-
   let s = getStyle(ele, 'transform');
 
   if (!_config.from) {
@@ -90,7 +84,7 @@ export function animate(ele, ease = 'easeIn', config = {}, callback = noop) {
   let timer = null;
   const times = parseInt(_config.duration / 16.67);
 
-  console.log('位置',_config.from,_config.maxVal,)
+  console.log(_config.from, _config.to);
 
   function step() {
     currentPos = animateType[ease](timeCount, _config.from, _config.to, times);
