@@ -1,9 +1,10 @@
 .container{
-    width: 200px;
-    height: 100px;
+    width: 400px;
+    height: 200px;
     background: #ccc;
     position: relative;
     overflow: hidden;
+    margin: 100px auto;
 }
 
 body{
@@ -18,24 +19,22 @@ li{
     list-style: none;
 }
 
-.sliderContent{
+.sliderContent {
     height: 100%;
     position: absolute;
     left: 0;
     display: flex;
 }
 
-.sliderItem{
-    width: 200px;
-    height: 100%;
-}
-
-.sliderItem:nth-child(even){
-    background: red;
-}
-
-.sliderItem:nth-child(odd){
-    background: blue;
+.sliderItem {
+    width: 400px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 100px;
+    color: #000;
+    background: orange;
 }
 
 .prev,.next{

@@ -10,11 +10,11 @@ class Slider extends React.Component {
     this.speed = this.props.speed || 2000;
     this.direction = this.props.direction ||'X';
     this.auto = this.props.auto || true;
-    this.effect = this.props.effect ||'elasticInOut';
+    this.effect = this.props.effect ||'easeIn';
     this.data = this.props.data || [];
     this.length = this.data.length + 1;
-    this.width = this.props.width || 200;
-    this.height = this.props.width || 100;
+    this.width = this.props.width || 400;
+    this.height = this.props.height || 200;
     this.index = 0;
     this.timer = 0;
 
