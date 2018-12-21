@@ -44,8 +44,13 @@ class Slider extends React.Component {
      * index 递减
      */
     if (direction === 'left') {
+      if (this.index === 0) {
+        this.index = this.length - 1;
+        ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
+      }
       from = - this.index * this.dir;
       to = - (this.index - 1) * this.dir;
+      
       this.index --;
     }
 
@@ -54,6 +59,10 @@ class Slider extends React.Component {
      * index 递增
      */
     if (direction === 'right') {
+      if (this.index === this.length - 1) {
+        this.index = 0;
+        ele.style.transform = `translate${this.direction}(${0}px)`;
+      }
       from = - this.index * this.dir;
       to = - (this.index + 1) * this.dir;
       this.index ++;
