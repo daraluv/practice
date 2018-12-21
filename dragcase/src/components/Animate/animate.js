@@ -84,10 +84,8 @@ export function animate(ele, ease = 'easeIn', config = {}, callback = noop) {
   let timer = null;
   const times = parseInt(_config.duration / 16.67);
 
-  console.log(_config.from, _config.to);
-
   function step() {
-    currentPos = animateType[ease](timeCount, _config.from, _config.to, times);
+    currentPos = animateType[ease](timeCount, _config.from, _config.to - _config.from, times);
     ele.style.transform = `translate${_config.direction}(${currentPos}px)`;
 
     if (timeCount < times) {
@@ -99,8 +97,8 @@ export function animate(ele, ease = 'easeIn', config = {}, callback = noop) {
     /**
      * 执行完毕的回调
      */
-    callback();
     cancelFrame(timer);
+    callback();
   }
 
   step();

@@ -46,7 +46,7 @@ class Slider extends React.Component {
     if (direction === 'left') {
       from = - this.index * this.dir;
       to = - (this.index - 1) * this.dir;
-      this.index = (this.index === 0) ? (this.length - 1) : (this.index - 1);
+      this.index --;
     }
 
     /**
@@ -56,9 +56,7 @@ class Slider extends React.Component {
     if (direction === 'right') {
       from = - this.index * this.dir;
       to = - (this.index + 1) * this.dir;
-      console.log('pre', this.index)
-      this.index = (this.index === this.length - 1) ? 0 : (this.index + 1);
-      console.log('nex', this.index)
+      this.index ++;
     }
 
     animate(ele, this.effect, { 
@@ -66,11 +64,13 @@ class Slider extends React.Component {
       to,
       direction: this.direction
     }, () => {
-      if (direction === 'right' && this.index === 0) {
+      if (direction === 'right' && this.index === this.length - 1) {
         ele.style.transform = `translate${this.direction}(${0}px)`;
+        this.index = 0;
       }
-      if (direction === 'left' && this.index === this.length - 1) {
+      if (direction === 'left' && this.index === this.length) {
         ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
+        this.index = 0;
       }
     })
   }
@@ -92,7 +92,6 @@ class Slider extends React.Component {
   }
 
   touchEnd = (dis) => {
-    console.log(dis)
     let that = this;
     let direction = 'left';
     if(Math.abs(dis.X) > 60 || Math.abs(dis.Y) > 60){
@@ -129,7 +128,6 @@ class Slider extends React.Component {
       </div>
     )
   }
-
 }
 
 export default Slider;
