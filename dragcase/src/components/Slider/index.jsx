@@ -68,23 +68,21 @@ class Slider extends React.Component {
         ele.style.transform = `translate${this.direction}(${0}px)`;
         this.index = 0;
       }
-      if (direction === 'left' && this.index === this.length) {
+      if (direction === 'left' && this.index === 0) {
         ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
-        this.index = 0;
+        this.index = this.length - 1;
       }
     })
   }
 
   clickPrev = () => {
     clearInterval(this.timer);
-    this.index --;
-    this.setIndex();
+    this.setIndex('left');
   }
 
   clickNext = () => {
     clearInterval(this.timer);
-    this.index ++;
-    this.setIndex();
+    this.setIndex('right');
   }
 
   autoPlay = () => {
