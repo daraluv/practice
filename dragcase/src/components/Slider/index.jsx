@@ -17,6 +17,10 @@ class Slider extends React.Component {
     this.height = this.props.height || 200;
     this.index = 0;
     this.timer = 0;
+    /**
+     * 是否正在自动滚动
+     */
+    this.autoRun = false;
 
     if(this.direction === 'X') {
       this.dir = parseInt(this.width);
@@ -25,6 +29,7 @@ class Slider extends React.Component {
     }
 
     if(this.auto) {
+      this.autoRun = true;
       this.timer = setInterval(this.autoPlay, this.speed);    
     }
   }
@@ -81,15 +86,22 @@ class Slider extends React.Component {
         ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
         this.index = this.length - 1;
       }
+      console.log(this.timer);
+      if (!this.autoRun) {
+        this.timer = setInterval(() => this.setIndex(direction), this.speed);
+        this.autoRun = true;
+      }
     })
   }
 
   clickPrev = () => {
+    this.autoRun = false;
     clearInterval(this.timer);
     this.setIndex('left');
   }
 
   clickNext = () => {
+    this.autoRun = false;
     clearInterval(this.timer);
     this.setIndex('right');
   }
