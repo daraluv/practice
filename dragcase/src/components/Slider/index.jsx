@@ -40,7 +40,6 @@ class Slider extends React.Component {
    * @param {string} direction 方向，从 'left, right, up, down' 中取一个作为值
    */
   setIndex = (direction) => {
-    let from = 0;
     let to = 0;
     const ele = this.refs.sliderContent;    
 
@@ -53,7 +52,6 @@ class Slider extends React.Component {
         this.index = this.length - 1;
         ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
       }
-      from = - this.index * this.dir;
       to = - (this.index - 1) * this.dir;
       
       this.index --;
@@ -68,13 +66,11 @@ class Slider extends React.Component {
         this.index = 0;
         ele.style.transform = `translate${this.direction}(${0}px)`;
       }
-      from = - this.index * this.dir;
       to = - (this.index + 1) * this.dir;
       this.index ++;
     }
 
     animate(ele, this.effect, { 
-      from, 
       to,
       direction: this.direction
     }, () => {
