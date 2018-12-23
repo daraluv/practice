@@ -41,13 +41,14 @@ class Slider extends React.Component {
    */
   setIndex = (direction) => {
     let to = 0;
-    const ele = this.refs.sliderContent;    
+    const ele = this.refs.sliderContent.refs.dragElement;
 
     /**
-     * 点击左侧按钮，往右移动，上一页的意思
+     * 点击左侧按钮，sliderContent往右移动，上一页的意思
      * index 递减
      */
     if (direction === 'left') {
+      // 初始位置就是极限位置的时候
       if (this.index === 0) {
         this.index = this.length - 1;
         ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
@@ -58,10 +59,11 @@ class Slider extends React.Component {
     }
 
     /**
-     * 点击右侧按钮，往左移动，下一页的意思，并且是水平方向的默认方向
+     * 点击右侧按钮，sliderContent往左移动，下一页的意思，并且是水平方向的默认方向
      * index 递增
      */
     if (direction === 'right') {
+      // 初始位置就是极限位置的时候
       if (this.index === this.length - 1) {
         this.index = 0;
         ele.style.transform = `translate${this.direction}(${0}px)`;
@@ -133,13 +135,11 @@ class Slider extends React.Component {
      <div className="container" ref="container" >
         <div className="prev" onClick={this.clickPrev}></div>
         <div className="next" onClick={this.clickNext}></div>
-        <div ref="sliderContent" >
-          <Drag className="sliderContent" onDragEnd={this.touchEnd}>           
-            {sliderItem.map((item,i) =>
-              <li className="sliderItem" key={i}>{item}</li>)
-            }
-          </Drag>
-        </div>
+        <Drag className="sliderContent" ref="sliderContent" onDragEnd={this.touchEnd}>
+          {sliderItem.map((item,i) =>
+            <li className="sliderItem" key={i}>{item}</li>)
+          }
+        </Drag>
       </div>
     )
   }
