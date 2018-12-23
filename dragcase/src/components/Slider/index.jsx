@@ -133,7 +133,7 @@ class Slider extends React.Component {
      <div className="container" ref="container" >
         <div className="prev" onClick={this.clickPrev}></div>
         <div className="next" onClick={this.clickNext}></div>
-        <div ref="sliderContent" >
+        <div ref="sliderContent">
           <Drag className="sliderContent" onDragEnd={this.touchEnd}>           
             {sliderItem.map((item,i) =>
               <li className="sliderItem" key={i}>{item}</li>)
