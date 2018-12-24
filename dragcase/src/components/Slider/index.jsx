@@ -113,15 +113,8 @@ class Slider extends React.Component {
     this.autoRun = false;
     clearInterval(this.timer);
 
-
-    if(Math.abs(dis.X) > 60 || Math.abs(dis.Y) > 60) {
-      if(this.direction === 'X') {
-        dis.X > 0 ? this.clickNext() : this.clickPrev();  
-      }
-
-      if(this.direction === 'Y' ) {
-        dis.Y > 0 ? this.clickNext() : this.clickPrev();  
-      }     
+    if(Math.abs(dis[this.direction]) > 60) {     
+      dis[this.direction] > 0 ? this.clickNext() : this.clickPrev();      
     }
 
   }
