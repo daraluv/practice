@@ -8,7 +8,7 @@ import Slider from './components/Slider';
 // )
 
 const ele2 = (
-  <Slider direction={'X'} auto={'true'} data={[1,2,3,4,5]}></Slider> 
+  <Slider direction={'Y'} auto={'true'} data={[1,2,3,4,5]}></Slider> 
 )
 
 render(ele2, document.querySelector('#root'));

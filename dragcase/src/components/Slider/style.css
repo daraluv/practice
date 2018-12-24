@@ -23,7 +23,7 @@ li{
     height: 100%;
     position: absolute;
     left: 0;
-    display: flex;
+    /*display: flex;*/
 }
 
 .sliderItem {
