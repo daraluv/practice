@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import './style.css'
 
-var zIndex = 0;//元素层级
+
 var isMoblie = 'ontouchstart' in window;//是否为移动端
 
 class Drag extends React.Component {
@@ -10,13 +10,16 @@ class Drag extends React.Component {
     super(props);
     this.elementWid = props.width || 100;
     this.elementHeight = props.height || 100;
+    this.left = props.left || 0;
+    this.top =  props.top || 0;
+    this.zIndex = props.zIndex || 0;
     this.clientWidth = props.maxWidth;
     this.clientHeight = props.maxHeight;
     this._dragStart = this.dragStart.bind(this);
 
     this.state = {
-      left:0,
-      top:0
+      left: this.left,
+      top: this.top
     };
   }
 
@@ -33,7 +36,7 @@ class Drag extends React.Component {
     this.disX = this.startX - target.offsetLeft;
     this.disY = this.startY - target.offsetTop;
 
-    zIndex += 1;
+    this.zIndex += 1;
 
     this._dragMove = this.dragMove.bind(this);
     this._dragEnd = this.dragEnd.bind(this);
@@ -84,25 +87,34 @@ class Drag extends React.Component {
     const {onDragEnd} = this.props;
     document.removeEventListener('mousemove', this._dragMove);
     document.removeEventListener('mouseup', this._dragEnd);
+
     onDragEnd && onDragEnd({
       X: this.startX - this.clientX,
-      Y: this.startY -this.clientY
+      Y: this.startY - this.clientY
     })
   }
 
   render() {
-    const { className, width, height } = this.props;
+    const { className, width, height} = this.props;
     const { left, top } = this.state;
-    // let direction = 'X',dir = 'left';
-    
-    // if(this.state.left) {
-    //   direction = 'X';
-    //   dir =this.state.left
-    // }else{
-    //   direction = 'Y';
-    //   dir = this.state.top
-    // }
-    
+
+    let styles = {
+      width,
+      height
+    }
+
+    if(this.props.left) {
+      styles['left'] = this.state.left;
+    }
+
+    if(this.props.top) {
+      styles['top'] = this.state.top;
+    }
+
+    if (this.props.zIndex) {
+      styles['zIndex'] = this.zIndex;
+    }
+  
     /**
      * dragbox 为拖拽默认样式
      * className 表示可以从外部传入class修改样式
@@ -110,16 +122,6 @@ class Drag extends React.Component {
     const cls = classnames('dragbox', {
       [className]: !!className
     })
-
-    /**
-     * 支持行内样式改动
-     */
-    const styles = {
-      // transform :`translate${direction}(${dir}px)`,
-      width,
-      height,
-      zIndex
-    }
 
     return (
       <div 

@@ -1,5 +1,5 @@
 .container{
-    width: 400px;
+    width: 320px;
     height: 200px;
     background: #ccc;
     position: relative;
@@ -27,7 +27,7 @@ li{
 }
 
 .sliderItem {
-    width: 400px;
+    width: 320px;
     height: 200px;
     display: flex;
     align-items: center;

@@ -13,7 +13,7 @@ class Slider extends React.Component {
     this.effect = this.props.effect ||'easeIn';
     this.data = this.props.data || [];
     this.length = this.data.length + 1;
-    this.width = this.props.width || 400;
+    this.width = this.props.width || 320;
     this.height = this.props.height || 200;
     this.index = 0;
     this.timer = 0;
@@ -24,7 +24,7 @@ class Slider extends React.Component {
 
     if(this.direction === 'X') {
       this.dir = parseInt(this.width);
-    }else{
+    }else {
       this.dir = parseInt(this.height);
     }
 
@@ -84,7 +84,7 @@ class Slider extends React.Component {
         ele.style.transform = `translate${this.direction}(${- this.index * this.dir}px)`;
         this.index = this.length - 1;
       }
-      console.log(this.timer);
+
       if (!this.autoRun) {
         this.timer = setInterval(() => this.setIndex(direction), this.speed);
         this.autoRun = true;
@@ -110,23 +110,19 @@ class Slider extends React.Component {
 
   touchEnd = (dis) => {
     let that = this;
-    let direction = 'left';
-    if(Math.abs(dis.X) > 60 || Math.abs(dis.Y) > 60){
-      if(Math.abs(dis.X) > Math.abs(dis.Y)){
-        direction = dis.X > 0 ? 'right' : 'left';             
-      }else{
-        direction = dis.Y > 0 ? 'down' : 'top';                       
+    this.autoRun = false;
+    clearInterval(this.timer);
+
+    if(Math.abs(dis.X) > 60 || Math.abs(dis.Y) > 60) {
+      if(this.direction === 'X') {
+        dis.X > 0 ? this.clickNext() : this.clickPrev();  
       }
 
-      if(direction ==='left' || direction ==='down') {
-        this.clickNext();
-      }
-
-      if(direction ==='right'|| direction === 'top') {
-        this.clickPrev();
-      }   
-      console.log(direction)
+      if(this.direction === 'Y') {
+        dis.Y > 0 ? this.clickNext() : this.clickPrev();  
+      }     
     }
+
   }
 
   render() {

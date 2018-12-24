@@ -3,4 +3,5 @@
     min-height: 100px;
     background: #ccc;
     position: absolute;
+    cursor: pointer;
 }
