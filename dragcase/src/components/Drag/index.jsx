@@ -130,6 +130,7 @@ class Drag extends React.Component {
         onMouseDown={this._dragStart} 
         onMouseUp={this._dragEnd}
         style={styles}
+        ref="dragElement"
       >
         {this.props.children}
       </div>
