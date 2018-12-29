@@ -1,0 +1,17 @@
+.btnGroup{
+    display: flex;
+    font-size: 14px;
+}
+
+button{
+    padding: 5px 8px;
+    margin:5px 8px; 
+    border: 1px solid #eee;
+    background: none;
+}
+
+input{
+    width: 40px;
+    line-height: 25px;
+    margin: 0 5px; 
+}
