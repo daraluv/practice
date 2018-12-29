@@ -23,29 +23,26 @@ class TabBtn extends React.Component {
       this.setState({
         titleArr: this.titleArr.pop()
       }); 
-    }   
+    };
   }
 
   getinputVal = (e) => {
     this.setState({
-      inputVal : e.target.value,
-    })
+      inputVal: e.target.value,
+    });
   };
-
 
   setValueHandle = () => {
     const {inputVal} = this.state;
-    console.log()
+
     if(inputVal > 0 && inputVal <= this.titleArr.length) {
       this.setState({
         titleArr: this.titleArr.splice(inputVal-1, 1)
       }); 
     }else {
       console.log(`第${inputVal}页不存在`);
-    }
-   
+    };  
   }
-
 
   render() {
     return (
@@ -56,11 +53,9 @@ class TabBtn extends React.Component {
            删除第<input type="tel" value={this.state.inputVal} onChange={this.getinputVal}/>页
            <button onClick={this.setValueHandle}>确定</button>
         </div>
-      </div>
-       
+      </div>     
     )
   }
 }
-
 
 export default TabBtn;

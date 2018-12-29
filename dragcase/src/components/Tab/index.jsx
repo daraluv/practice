@@ -6,14 +6,12 @@ import TabBtn from '../TabBtn';
 class Tab extends React.Component {
   constructor(props) {
     super(props);
-
     this.titleArr = this.props.titles || [];
     this.contentArr = this.props.contents || [];
-
     this.state = {
-        current: 0,
-        titleArr: this.titleArr,
-        contentArr: this.contentArr 
+      current: 0,
+      titleArr: this.titleArr,
+      contentArr: this.contentArr 
     };
   }
 
@@ -21,7 +19,6 @@ class Tab extends React.Component {
     this.setState({
       titleArr: this.titleArr,
     });
-    console.log(this.state)
   }
 
   setNav = (index) => {
@@ -32,9 +29,7 @@ class Tab extends React.Component {
     return index === this.state.current ? 'contentItem active' : 'contentItem';
   }
 
-
   render() {
-
     return (
         <div className="tabContainer">
           <ul className="tabNav">
@@ -60,6 +55,5 @@ class Tab extends React.Component {
     )
   }
 }
-
 
 export default Tab;
