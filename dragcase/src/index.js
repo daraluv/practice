@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Slider from './components/Slider';
+import TabDemo from './components/TabDemo';
 
 // const ele1 = (
 //   <div class ='container'>
@@ -8,7 +8,7 @@ import Slider from './components/Slider';
 // )
 
 const ele2 = (
-  <Slider direction={'Y'} auto={'true'} data={[1,2,3,4,5]}></Slider> 
+  <TabDemo /> 
 )
 
 render(ele2, document.querySelector('#root'));
