@@ -1,16 +1,10 @@
 import React from 'react';
-import Tab from './Tab';
 
 import './style.css';
 
 class Btns extends React.Component {
-  removeLast = () => {
-    const { data, remove } = this.props;
-    remove(data.length);
-  }
-
   render() {
-    const { data, currentIndex, remove, switchTo } = this.props;
+    const { data, remove, switchTo } = this.props;
     return (
       <div className="btns_container">
         {data.map((item, i) => (
