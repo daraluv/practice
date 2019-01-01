@@ -25,7 +25,7 @@ class TabDemo extends React.Component {
     }
 
     data.splice(index - 1, 1);
-    const _cur = currentIndex === index ? 0 : currentIndex;
+    const _cur = currentIndex === index - 1 ? 0 : currentIndex;
     
     this.setState({
       data,
