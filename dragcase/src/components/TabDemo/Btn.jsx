@@ -1,5 +1,5 @@
 import React from 'react';
-
+import WithButton from './WithButton.js';
 import './style.css';
 
 // class Btns extends React.Component {
@@ -17,18 +17,20 @@ import './style.css';
 //   }
 // }
 
-function Btns(props) {
-  const { data, remove, switchTo } = props;
+class Btn extends React.Component {
+  render() {
+    let {data, index, switchTo, remove} = this.props;
+    // console.log(data)
 
-  return (
-    <div className="btns_container">
-      {data.map((item, i) => (
-        <button key={i} onClick={() => switchTo(i)}>{item}</button>
-      ))}
-
-      <button onClick={() => remove(data.length)}>删除最后一页</button>
-    </div>
-  )
+    return (
+      <div className="btns_container">
+        {data.map((item, i) => (
+          <button key={i} onClick={() => switchTo(i)}>{item}</button>
+        ))}
+        <button onClick={() => remove(data.length)}>删除最后一页</button>
+      </div>
+    )
+  }
 }
 
-export default Btns;
+export default WithButton(Btn);

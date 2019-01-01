@@ -5,7 +5,6 @@ const TabController  = (BaseComponent, data) => {
     constructor(props) {
       super(props)
       this.state = {
-        name: '',
         inputVal: '',
         current: 0,
         titleArr: data || ['首页', '新闻', '电影', '电视剧'],
