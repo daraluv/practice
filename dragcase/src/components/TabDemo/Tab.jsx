@@ -1,13 +1,16 @@
 import React from 'react';
+import WithButton from './WithButton.js';
 
 class Tab extends React.Component {
   render() {
-    const { index, data, switchTo } = this.props;
+    let {data, index, switchTo, remove} = this.props;
+    
     return (
       <div className="tab_container">
         <ul className="tab_header">
           {data.map((item, i) => (
-            <li key={i} className={index === i ? 'active' : ''} onClick={() => switchTo(i)}>{item}</li>
+            <li key={i} className={index === i ? 'active' : ''}
+             onClick={() => switchTo(i)}>{item}</li>
           ))}
         </ul>
         <div className="tab_content">{index}</div>
@@ -16,4 +19,4 @@ class Tab extends React.Component {
   }
 }
 
-export default Tab;
+export default WithButton(Tab);
