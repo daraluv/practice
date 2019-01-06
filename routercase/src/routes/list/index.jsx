@@ -1,12 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const Home = () => (
+const List = ({ match }) => (
   <div>
-    <p>this is home page</p>
-    <Link to="/about">go to About</Link>
+    <Link to="/about">{match.params.id}</Link>
   </div>
 )
 
-export default Home
+export default List
 

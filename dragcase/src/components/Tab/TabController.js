@@ -40,7 +40,6 @@ const TabController  = (BaseComponent, data) => {
     }
 
     getinputVal = (e) => {
-      console.log(e.target.value)
       this.setState({
         inputVal: e.target.value
       });
