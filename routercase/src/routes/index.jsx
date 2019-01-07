@@ -8,9 +8,6 @@ import Login from './login'
 import List from './list'
 import {PrivateRoute, fakeAuth} from './privateRoute'
 
-console.log(PrivateRoute)
-console.log(fakeAuth)
-
 const Routes = () => (
   <HashRouter>
     <div>

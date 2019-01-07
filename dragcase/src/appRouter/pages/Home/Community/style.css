@@ -1,0 +1,37 @@
+.com_container {
+  height: 100%;
+  display: flex;
+  flex-direction: column; 
+}
+
+.com_container .nav {
+  border-top: none;
+  border-bottom: 1px solid #efefef;
+}
+
+.com_container .nav .active {
+  color: blueviolet;
+}
+
+.com_container .content {
+  flex: 1;
+  overflow: scroll;
+}
+
+.item_container {
+  height: 100px;
+  border-bottom: 1px solid #efefef;
+  padding: 0 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.item_container h1 {
+  font-size: 16px;
+}
+
+.item_container p {
+  font-size: 12px;
+  margin-top: 20px;
+}

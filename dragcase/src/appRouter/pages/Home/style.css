@@ -1,0 +1,28 @@
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.home_container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.home_container .content {
+  flex: 1;
+  overflow: scroll;
+}
+.home_container .nav {
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border-top: 1px solid #ccc;
+}
+.home_container .nav .active {
+  font-weight: bold;
+  color: orange;
+}

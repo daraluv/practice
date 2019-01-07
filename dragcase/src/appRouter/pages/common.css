@@ -1,0 +1,45 @@
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+#root {
+  height: 100%;
+}
+
+h1, p {
+  margin: 0;
+}
+
+.splash_container .count {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 100px;  
+}
+
+input {
+  background: none;
+  border: none;
+  outline: none;
+  height: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  background: none;
+  border: none;
+  outline: none;
+  height: 34px;
+  font-size: 16px;
+  border: 1px solid orange;
+  background-color: orange;
+  color: #FFF;
+  border-radius: 4px;
+  min-width: 100px;
+  margin: 10px;
+}
