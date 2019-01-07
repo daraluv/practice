@@ -1,7 +1,7 @@
 import React from 'react';
 import routers from './router';
 import { Route } from 'react-router';
-import { HashRouter, BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Switch } from 'react-router-dom';
 
 /**
  * 在构思如何设计App的路由时，需要注意以下几点

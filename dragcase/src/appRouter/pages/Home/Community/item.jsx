@@ -12,8 +12,11 @@ class Flow extends React.Component {
   }
 
   navToDetail = () => {
-    const { history, to } = this.props;
-    history.push(to);
+    const { history, to, title, author } = this.props;
+    history.push(to, {
+      title,
+      author
+    });
   }
 
   render() {
