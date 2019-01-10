@@ -5,7 +5,7 @@ import Home from './home'
 import Welcome from './welcome'
 import Sigin from './sigin'
 import Login from './login'
-import List from './list'
+import Detail from './home/detail'
 import {PrivateRoute, fakeAuth} from './privateRoute'
 
 const Routes = () => (
@@ -17,8 +17,8 @@ const Routes = () => (
         <Route path="/sigin" component={Sigin}/>
         <Route path="/login" component={Login}/>
         <PrivateRoute path="/home" component={Home} >
-          
         </PrivateRoute>
+        <Route path="/detail/:id" component={Detail}/>
       </Switch>
     </div>
   </HashRouter>

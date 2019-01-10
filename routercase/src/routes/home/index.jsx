@@ -1,16 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
-import { Route, Redirect } from 'react-router'
-import List from '../list'
+import { NavLink, Route, Redirect } from 'react-router-dom'
+import Lista from './lista'
+import Listb from './listb'
+import Listc from './listc'
+import './style.css';
 
 const Home = () => (
   <div>
     <ul>
-      <li><Link to="/List">products</Link></li>
-      <li><Link to="/List">inspirations</Link></li>
-      <li><Link to="/List">shop</Link></li>
+    	<li><NavLink to="/home/lista" activeClassName="active">products</NavLink></li>
+    	<li><NavLink to="/home/listb" activeClassName="active">inspirations</NavLink></li>
+    	<li><NavLink to="/home/listc" activeClassName="active">shop</NavLink></li>
     </ul>
-    <Route path="/:id" component={List} />
+    <div>
+       <Route path="/home/lista" component={Lista} />
+       <Route path="/home/listb" component={Listb} />
+       <Route path="/home/listc" component={Listc} />
+    </div>
   </div>
 )
 
