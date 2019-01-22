@@ -1,6 +1,11 @@
-import React from 'react';
-import { render } from 'react-dom';
-import Drag from './components/Drag';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import App from './App';
+import './index.css';
+import registerServiceWorker from './registerServiceWorker';
 
-console.log(Drag);
-// render(<Drag />, document.querySelector('#root'));
+ReactDOM.render(
+  <App />,
+  document.getElementById('root') as HTMLElement
+);
+registerServiceWorker();

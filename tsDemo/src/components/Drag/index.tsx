@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 import classnames from 'classnames';
 import './style.css';
 
@@ -115,7 +115,7 @@ class Drag extends React.Component<drag.DragProps, drag.DragState> {
   }
 
   public render() {
-    const { className, width, height, zIndex } = this.props;
+    const { className, width = 100, height = 100, zIndex } = this.props;
     const { left, top } = this.state;
 
     const styles: drag.LiteralO = {
