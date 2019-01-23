@@ -2,7 +2,6 @@ import React from 'react';
 import classnames from 'classnames';
 import './style.css'
 
-
 var isMoblie = 'ontouchstart' in window;//是否为移动端
 
 class Drag extends React.Component {

@@ -2,7 +2,6 @@ import React from 'react'
 import { Route, Redirect } from 'react-router'
 import { HashRouter, Switch } from 'react-router-dom'
 
-
 export const fakeAuth = {
   isAuthenticated: false,
   authenticate(cb) {
