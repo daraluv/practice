@@ -157,5 +157,4 @@ class Drag extends React.Component<drag.DragProps, drag.DragState> {
   }
 }
 
-
 export default Drag;
