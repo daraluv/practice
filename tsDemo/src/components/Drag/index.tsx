@@ -116,19 +116,13 @@ class Drag extends React.Component<drag.DragProps, drag.DragState> {
 
   public render() {
     const { className, width = 100, height = 100, zIndex } = this.props;
-    const { left, top } = this.state;
+    const { left = 0, top = 0 } = this.state;
 
     const styles: drag.LiteralO = {
       width,
-      height
-    }
-
-    if (this.props.left) {
-      styles['left'] = left;
-    }
-
-    if (this.props.top) {
-      styles['top'] = top;
+      height,
+      left,
+      top
     }
 
     if (zIndex) {
@@ -158,3 +152,47 @@ class Drag extends React.Component<drag.DragProps, drag.DragState> {
 }
 
 export default Drag;
+
+// /**
+//  * 索引类型
+//  * 表示key值不确定，但是可以约束key的类型，与value的类型
+//  */
+// interface LiteralO {
+//   [key: number]: string
+// }
+
+// const enx: LiteralO = {
+//   1: 'number',
+//   2: 'axios',
+//   3: 'http',
+//   4: 'zindex'
+// }
+
+// /**
+//  * 映射类型用另外一种方式约束JSON的key值
+//  */
+// type keys = 1 | 2 | 3 | 4 | 5;
+// type Mapx = {
+//   [key in keys]: string
+// }
+
+// const enx2: Mapx = {
+//   1: 'number',
+//   2: 'axios',
+//   3: 'http',
+//   4: 'zindex',
+//   5: 'other'
+// }
+
+// interface Person {
+//   name: string,
+//   age: number
+// }
+// type Mapo = {
+//   [P in keyof Person]: string
+// }
+
+// const enx3: Mapo = {
+//   name: 'alex',
+//   age: '20'
+// }
